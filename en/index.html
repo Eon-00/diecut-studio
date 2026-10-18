@@ -198,7 +198,7 @@ dialog.cw::backdrop{background:rgba(20,26,24,.38);backdrop-filter:blur(2px)}
 .cw-steps li{flex:1;counter-increment:cw;padding:6px 8px;border-radius:8px;background:var(--field);font-size:12px;color:var(--muted);text-align:center}
 .cw-steps li::before{content:counter(cw) ". "}
 .cw-steps li.on{background:var(--cut-soft);color:var(--cut);font-weight:600}.cw-steps li.done{color:var(--fg)}
-.cw-body{display:flex;flex-direction:column;gap:12px}.cw-body[hidden]{display:none}.cw-body p{margin:0;font-size:13px;line-height:1.55}
+.cw-body{display:flex;flex-direction:column;gap:12px}.cw-body[hidden]{display:none}.cw-body p{margin:0;font-size:13px;line-height:1.55}.cw-body>.l{margin:4px 0 -6px;font-size:12.5px;color:var(--muted)}
 .cw-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow:auto}
 .cw-row{display:flex;align-items:center;gap:10px;padding:6px 8px;border:1px solid var(--line);border-radius:10px}
 .cw-row .n{flex:none;width:20px;font-weight:600;color:var(--cut);text-align:center}
@@ -467,13 +467,12 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
             <div class="cw-need" id="cw-need" hidden><p>You need <b>2 or more</b> images.</p><label class="btn" for="file-input" role="button" tabindex="0">Open file</label></div>
           </div>
           <div class="cw-body" data-s="2" hidden>
-            <p>Pick the ring for the top. It's <b>only for the 3D preview</b> and isn't saved in the file.</p>
-            <div class="picks cwpicks" id="cw-ring" role="radiogroup" aria-label="Ring">
-              <button type="button" role="radio" data-r="ring" data-c="silver"><b>Split ring</b><small>Silver</small></button>
-              <button type="button" role="radio" data-r="ball" data-c="silver"><b>Ball chain</b><small>Silver</small></button>
-              <button type="button" role="radio" data-r="dring" data-c="gold"><b>Swivel clasp</b><small>Gold</small></button>
-              <button type="button" role="radio" data-r="ring" data-c="pink"><b>Split ring</b><small>Pink gold</small></button>
-            </div>
+            <p>Pick the top ring and how it's placed. It's <b>only for the 3D preview</b> and isn't saved in the file.</p>
+            <span class="l">Ring type</span>
+            <div class="seg" id="cw-ring" role="radiogroup" aria-label="Ring type"><label><input type="radio" name="cwring" value="ring"><span>Split</span></label><label><input type="radio" name="cwring" value="dring"><span>Clasp</span></label><label><input type="radio" name="cwring" value="ball"><span>Ball</span></label><label><input type="radio" name="cwring" value="jump"><span>Jump</span></label></div>
+            <span class="l">Ring color</span>
+            <div class="seg" id="cw-col" role="radiogroup" aria-label="Ring color"><label><input type="radio" name="cwcol" value="silver"><span>Silver</span></label><label><input type="radio" name="cwcol" value="gold"><span>Gold</span></label><label><input type="radio" name="cwcol" value="pink"><span>Pink gold</span></label><label><input type="radio" name="cwcol" value="black"><span>Black</span></label></div>
+            <span class="l">Pose</span>
             <div class="seg" role="radiogroup" aria-label="Pose"><label><input type="radio" name="cwpose" id="cwpose-hang" checked><span>Hanging</span></label><label><input type="radio" name="cwpose" id="cwpose-lay"><span>Lying flat</span></label></div>
           </div>
           <div class="cw-body" data-s="3" hidden>
@@ -7682,30 +7681,26 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    list.append(r);
   }));
   $("cw-need").hidden = !few;
-  for (const b of $("cw-ring").querySelectorAll("button")) b.setAttribute("aria-checked", b.dataset.r === cwPick.r && b.dataset.c === cwPick.c);
   $("cw-prev").style.visibility = cwStep > 1 ? "" : "hidden";
   $("cw-next").textContent = cwStep < 3 ? "Next" : "Done";
   $("cw-next").disabled = few;
  }
- const cwPick = {
-  r: "ring",
-  c: "silver"
- };
  function cwOpen() {
   if (PROD !== "keyring") setProd("keyring");
-  const known = [ ...$("cw-ring").querySelectorAll("button") ].find((b => b.dataset.r === G.ring3 && b.dataset.c === G.rcol));
-  if (known) {
-   cwPick.r = G.ring3;
-   cwPick.c = G.rcol;
-  }
+  const pick = (n, v, d) => {
+   const i = document.querySelector('input[name="' + n + '"][value="' + v + '"]') || document.querySelector('input[name="' + n + '"][value="' + d + '"]');
+   i.checked = true;
+  };
+  pick("cwring", G.ring3, "ring");
+  pick("cwcol", G.rcol, "silver");
   $("cwpose-" + (G.kpose === "lay" ? "lay" : "hang")).checked = true;
   cwStep = 1;
   $("cw").showModal();
   cwRender();
  }
  function cwDone() {
-  G.ring3 = cwPick.r;
-  G.rcol = cwPick.c;
+  G.ring3 = document.querySelector('input[name="cwring"]:checked').value;
+  G.rcol = document.querySelector('input[name="cwcol"]:checked').value;
   G.kpose = $("cwpose-lay").checked ? "lay" : "hang";
   G.kmulti = "chain";
   if (G.kpose === "lay") G.klay = Array(8).fill(0);
@@ -7724,11 +7719,6 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   } else open3d();
  }
  for (const b of document.querySelectorAll("[data-cw]")) b.addEventListener("click", cwOpen);
- for (const b of $("cw-ring").querySelectorAll("button")) b.addEventListener("click", (() => {
-  cwPick.r = b.dataset.r;
-  cwPick.c = b.dataset.c;
-  cwRender();
- }));
  $("cw-x").addEventListener("click", (() => $("cw").close()));
  $("cw-prev").addEventListener("click", (() => {
   cwStep = Math.max(1, cwStep - 1);
