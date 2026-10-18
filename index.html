@@ -192,10 +192,12 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .sec h3.subh,.sec .subh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 8px;padding-top:12px;border-top:1px dashed var(--line)}
 .sec > h3.subh:first-of-type{border-top:0;padding-top:0;margin-top:6px}
 .secnav{position:sticky;top:0;z-index:3;display:flex;align-items:flex-end;gap:3px;padding:10px 10px 0;background:var(--mat);border-bottom:1px solid var(--line-strong);overflow-x:auto;scrollbar-width:none;container-type:inline-size}
-.secnav button{flex:1 1 0;min-width:52px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:-1px;padding:8px 6px 9px;border:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--mat) 55%,var(--panel));color:var(--muted);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .12s,color .12s}
+.secnav button{flex:1 0 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:-1px;padding:8px 6px 9px;border:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--mat) 55%,var(--panel));color:var(--muted);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .12s,color .12s}
 .secnav button:hover{color:var(--fg)}
 .secnav button span{white-space:nowrap}
-@container (max-width:420px){.secnav button .ic{display:none}.secnav button{min-width:0;padding-left:2px;padding-right:2px}}
+.secnav.t1 button .ic{display:none}.secnav.t1 button{padding-left:7px;padding-right:7px}
+.secnav.t2{gap:2px;padding-left:6px;padding-right:6px}.secnav.t2 button{padding-left:4px;padding-right:4px;font-size:11.5px}
+.secnav.t3 button{font-size:10.5px;letter-spacing:-.02em;padding-left:3px;padding-right:3px}
 .secnav button .ic{width:14px;height:14px}
 .secnav button[aria-selected="true"]{background:var(--panel);color:var(--fg);border-bottom-color:var(--panel);padding-top:10px;box-shadow:0 -3px 8px rgba(20,26,24,.06)}
 .side.tabbed .sec[data-k]{display:none}
@@ -456,7 +458,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <div class="btns"><button class="btn mini" id="btn-fill" type="button">남은 자리 채우기</button><button class="btn mini" id="btn-dup" type="button">한 장 더</button><button class="btn mini" id="btn-del" type="button">이 조각 빼기</button><button class="btn mini" id="btn-arrange" type="button">전체 다시 배치</button></div>
         <p class="hint">조각은 끌어서 옮깁니다. <kbd>Ctrl</kbd>+<kbd>D</kbd> 한 장 더, <kbd>Delete</kbd> 빼기<br>칼선과 배경은 <b>낱장</b> 화면에서 바꿉니다.</p>
       </section>
-      <nav class="secnav" id="secnav" role="tablist" aria-label="설정 구역"><button type="button" role="tab" data-go="form"><svg class="ic" viewBox="0 0 16 16"><path d="M4 3.5h8l-1 9H5z" stroke-dasharray="2 1.6"/></svg><span>모양</span></button><button type="button" role="tab" data-go="prod" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="4" r="1.6"/><path d="M5 6.5h6l.8 6.5H4.2z"/></svg><span>제품</span></button><button type="button" role="tab" data-go="print"><svg class="ic" viewBox="0 0 16 16"><path d="M4.5 6V2.5h7V6M4.5 11h-2V6.5h11V11h-2M4.5 9h7v4.5h-7z"/></svg><span id="tab-print">배경색</span></button><button type="button" role="tab" data-go="v3" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2 13.5 5v6L8 14 2.5 11V5zM2.5 5 8 8l5.5-3M8 8v6"/></svg><span>3D</span></button><button type="button" role="tab" data-go="save"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10"/></svg><span>저장</span></button></nav>
+      <nav class="secnav" id="secnav" role="tablist" aria-label="설정 구역"><button type="button" role="tab" data-go="form"><svg class="ic" viewBox="0 0 16 16"><path d="M4 3.5h8l-1 9H5z" stroke-dasharray="2 1.6"/></svg><span>모양</span></button><button type="button" role="tab" data-go="prod" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="4" r="1.6"/><path d="M5 6.5h6l.8 6.5H4.2z"/></svg><span>제품</span></button><button type="button" role="tab" data-go="layer" data-for="korotto"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2.5 14 5.5 8 8.5 2 5.5zM2 8.5l6 3 6-3M2 11l6 3 6-3"/></svg><span>레이어</span></button><button type="button" role="tab" data-go="print"><svg class="ic" viewBox="0 0 16 16"><path d="M4.5 6V2.5h7V6M4.5 11h-2V6.5h11V11h-2M4.5 9h7v4.5h-7z"/></svg><span id="tab-print">배경색</span></button><button type="button" role="tab" data-go="v3" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2 13.5 5v6L8 14 2.5 11V5zM2.5 5 8 8l5.5-3M8 8v6"/></svg><span>3D</span></button><button type="button" role="tab" data-go="save"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10"/></svg><span>저장</span></button></nav>
 
       <section class="sec" data-k="form">
         <h2>모양</h2>
@@ -623,13 +625,6 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
           <input id="shr" type="range" min="0" max="30" step="0.5">
           <p class="hint">칼선 모서리의 반지름. 여백보다 작게는 되지 않습니다</p>
         </div>
-        <div class="field" data-for="korotto">
-          <div class="row"><span class="l">레이어</span><span class="btns"><button class="btn mini" id="btn-layer-all" type="button" hidden>전체 보기</button><button class="btn mini" id="btn-layer" type="button">레이어 추가</button></span></div>
-          <input id="layer-input" type="file" accept="image/*" multiple hidden>
-          <div class="shlist" id="layer-list"></div>
-          <p class="warn" id="layer-ai-note" hidden>AI 파일은 투명도를 담지 못해 <b>판마다 흰 바탕</b>이 깔립니다. 업체에는 <b>PDF</b>로 보내는 것을 권장합니다.</p>
-          <p class="hint">판을 여러 장 겹쳐 깊이감을 냅니다. 판마다 그림이 한 장씩 인쇄됩니다.<br><b>같은 크기의 캔버스</b>에 그린 그림을 넣으세요. 칼선은 모든 레이어를 합친 모양입니다.</p>
-        </div>
         <label class="opt" data-for="keyring"><span>고리 구멍<small>그림 맨 위에 자동으로 놓입니다. 캔버스에서 끌어 옮길 수 있습니다</small></span><input class="sw" id="hole" type="checkbox"></label>
         <div class="sub" id="f-hole" data-for="keyring">
           <div class="field">
@@ -682,8 +677,39 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         </div>
       </section>
 
+      <section class="sec" data-k="layer" data-for="korotto">
+        <h2>레이어</h2>
+        <div class="field">
+          <div class="row"><span class="l">겹치는 판</span><span class="btns"><button class="btn mini" id="btn-layer-all" type="button" hidden>전체 보기</button><button class="btn mini" id="btn-layer" type="button">레이어 추가</button></span></div>
+          <input id="layer-input" type="file" accept="image/*" multiple hidden>
+          <div class="shlist" id="layer-list"></div>
+          <p class="warn" id="layer-ai-note" hidden>AI 파일은 투명도를 담지 못해 <b>판마다 흰 바탕</b>이 깔립니다. 업체에는 <b>PDF</b>로 보내는 것을 권장합니다.</p>
+          <p class="hint">판을 여러 장 겹쳐 깊이감을 냅니다. 판마다 그림이 한 장씩 인쇄됩니다.<br><b>같은 크기의 캔버스</b>에 그린 그림을 넣으세요. 칼선은 모든 레이어를 합친 모양입니다.</p>
+        </div>
+      </section>
+
       <section class="sec" data-k="print">
         <h2 id="print-title">배경색</h2>
+        <div data-for="keyring korotto stand">
+        <h3 class="subh">뒷면과 화이트</h3>
+        <div class="field">
+          <div class="row"><span class="l">뒷면 그림</span><span class="btns"><button class="btn mini" id="btn-back" type="button">뒷면 열기</button><button class="btn mini" id="btn-back-rm" type="button" hidden>빼기</button></span></div>
+          <input id="back-input" type="file" accept="image/*" hidden>
+          <p class="hint" id="back-name">없음</p>
+          <p class="hint">양면 인쇄용. <b>앞면과 같은 크기</b>의 그림을 넣으세요.<br>파일 이름이 <b>앞면이름_back</b>이면 같이 열 때 자동으로 짝지어집니다.</p>
+        </div>
+        <label class="opt"><span>뒷면 좌우 반전<small>켬: 뒤집어 들고 본 모습 그대로 그린 그림 · 끔: 앞면에 겹쳐 그린 그림</small></span><input class="sw" id="bflip" type="checkbox"></label>
+        <label class="opt"><span>화이트(백판) 같이 저장<small>배경이 있으면 칼선 안쪽 전체, 없으면 그림 부분에 화이트가 들어갑니다</small></span><input class="sw" id="white" type="checkbox"></label>
+        <div class="sub" id="f-white">
+          <div class="field">
+            <div class="row"><label for="ws">화이트 줄이기</label><span class="num"><input id="ws-n" type="number" min="0" max="0.5" step="0.05" aria-label="화이트 줄이기 mm">mm</span></div>
+            <input id="ws" type="range" min="0" max="0.5" step="0.05">
+            <p class="hint">인쇄가 밀려도 화이트가 삐져나오지 않게 줄이는 폭</p>
+          </div>
+          <div class="row"><span class="l">표시 색</span><div class="color" style="flex:0 0 132px"><input type="color" id="wc" aria-label="화이트 표시 색 고르기"><input class="hex" type="text" id="wc-hex" maxlength="7" spellcheck="false" autocomplete="off" aria-label="화이트 표시 색 색상 코드"></div></div>
+          <label class="opt"><span>화이트 미리 보기<small>화이트가 들어갈 자리를 표시 색으로 보여 줍니다</small></span><input class="sw" id="wprev" type="checkbox"></label>
+        </div>
+        </div>
         <h3 class="subh">배경</h3>
         <div class="seg" role="radiogroup" aria-label="배경 종류">
           <label><input type="radio" name="bgtype" id="bg-none" value="none"><span>없음</span></label>
@@ -710,26 +736,6 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
           <div class="row"><label for="bleed">도련</label><span class="num"><input id="bleed-n" type="number" min="0" max="3" step="0.1" aria-label="도련 mm">mm</span></div>
           <input id="bleed" type="range" min="0" max="3" step="0.1">
           <p class="hint">칼이 밀려도 흰 틈이 안 보이게 배경을 <b>칼선 밖으로 더 칠하는 폭</b>입니다</p>
-        </div>
-        <div data-for="keyring korotto stand">
-        <h3 class="subh">뒷면과 화이트</h3>
-        <div class="field">
-          <div class="row"><span class="l">뒷면 그림</span><span class="btns"><button class="btn mini" id="btn-back" type="button">뒷면 열기</button><button class="btn mini" id="btn-back-rm" type="button" hidden>빼기</button></span></div>
-          <input id="back-input" type="file" accept="image/*" hidden>
-          <p class="hint" id="back-name">없음</p>
-          <p class="hint">양면 인쇄용. <b>앞면과 같은 크기</b>의 그림을 넣으세요.<br>파일 이름이 <b>앞면이름_back</b>이면 같이 열 때 자동으로 짝지어집니다.</p>
-        </div>
-        <label class="opt"><span>뒷면 좌우 반전<small>켬: 뒤집어 들고 본 모습 그대로 그린 그림 · 끔: 앞면에 겹쳐 그린 그림</small></span><input class="sw" id="bflip" type="checkbox"></label>
-        <label class="opt"><span>화이트(백판) 같이 저장<small>배경이 있으면 칼선 안쪽 전체, 없으면 그림 부분에 화이트가 들어갑니다</small></span><input class="sw" id="white" type="checkbox"></label>
-        <div class="sub" id="f-white">
-          <div class="field">
-            <div class="row"><label for="ws">화이트 줄이기</label><span class="num"><input id="ws-n" type="number" min="0" max="0.5" step="0.05" aria-label="화이트 줄이기 mm">mm</span></div>
-            <input id="ws" type="range" min="0" max="0.5" step="0.05">
-            <p class="hint">인쇄가 밀려도 화이트가 삐져나오지 않게 줄이는 폭</p>
-          </div>
-          <div class="row"><span class="l">표시 색</span><div class="color" style="flex:0 0 132px"><input type="color" id="wc" aria-label="화이트 표시 색 고르기"><input class="hex" type="text" id="wc-hex" maxlength="7" spellcheck="false" autocomplete="off" aria-label="화이트 표시 색 색상 코드"></div></div>
-          <label class="opt"><span>화이트 미리 보기<small>화이트가 들어갈 자리를 표시 색으로 보여 줍니다</small></span><input class="sw" id="wprev" type="checkbox"></label>
-        </div>
         </div>
       </section>
 
@@ -3082,7 +3088,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    const t = tipping(), bwmm = ((S.baseSpan[1] - S.baseSpan[0]) / pxmm()).toFixed(1);
    if (t === 2) w.push(F("무게중심이 바닥({0} mm) 밖에 있어 넘어집니다. 바닥을 넓히거나 좌우 위치를 옮기세요.", bwmm)); else if (t === 1) w.push(F("무게중심이 바닥({0} mm) 끝에 치우쳐 있어 넘어지기 쉽습니다.", bwmm));
   }
-  const kw = k => new RegExp(k), secOf = t => kw("꽂이|홈|발판|부딪힙|넘어지기 쉽습니다. 앞뒤").test(t) ? "prod" : kw("뒷면|앞뒤").test(t) ? "print" : kw("고리 구멍|구멍 테두리|무게중심|바닥|레이어|좁은 곳|최소 폭").test(t) ? "prod" : "form";
+  const kw = k => new RegExp(k), secOf = t => kw("꽂이|홈|발판|부딪힙|넘어지기 쉽습니다. 앞뒤").test(t) ? "prod" : kw("뒷면|앞뒤").test(t) ? "print" : kw("레이어").test(t) && PROD === "korotto" ? "layer" : kw("고리 구멍|구멍 테두리|무게중심|바닥|레이어|좁은 곳|최소 폭").test(t) ? "prod" : "form";
   const wb = $("warn");
   wb.hidden = !w.length;
   wb.textContent = "";
@@ -5467,6 +5473,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   $("tab-print").textContent = PROD === "sticker" ? "배경색" : "화이트 인쇄";
   $("print-title").textContent = PROD === "sticker" ? "배경색" : "화이트 인쇄 · 배경";
   $("acr-title").textContent = PROD === "keyring" ? "아크릴 키링" : PROD === "stand" ? "아크릴" : "아크릴 블록";
+  fitNav();
  }
  async function restore() {
   db = await openDb();
@@ -6629,7 +6636,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  }
  async function saveVideo() {
   if (!V3.on || !V3.gl || V3.rec) return;
-  const mime = [ "video/webm;codecs=vp9", "video/webm", "video/mp4" ].find((t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)));
+  const mime = [ "video/mp4;codecs=avc1.640028", "video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm" ].find((t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)));
   if (!mime || !cv3.captureStream) return toast("이 브라우저에서는 영상을 만들 수 없습니다. 최신 Chrome이나 Edge에서 열어 주세요.");
   spinStop();
   V3.rec = true;
@@ -6891,6 +6898,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  const TABS = {
   form: [ "form", "view" ],
   prod: [ "prod" ],
+  layer: [ "layer" ],
   print: [ "print" ],
   v3: [ "v3" ],
   save: [ "save" ]
@@ -6908,8 +6916,20 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    if (on) setOpen(sec, true);
   }
   for (const b of nav.querySelectorAll("button")) b.setAttribute("aria-selected", b.dataset.go === t);
+  fitNav();
+ }
+ function fitNav() {
+  const nav = $("secnav");
+  if (!nav || !nav.offsetWidth) return;
+  nav.classList.remove("t1", "t2", "t3");
+  for (const c of [ "t1", "t2", "t3" ]) {
+   if (nav.scrollWidth <= nav.clientWidth + 1) break;
+   nav.classList.add(c);
+  }
  }
  function initNav() {
+  if (window.ResizeObserver) new ResizeObserver((() => fitNav())).observe($("secnav"));
+  if (document.fonts) document.fonts.ready.then(fitNav);
   const side = document.querySelector(".side"), nav = $("secnav");
   side.classList.add("tabbed");
   for (const b of nav.querySelectorAll("button")) b.addEventListener("click", (() => {

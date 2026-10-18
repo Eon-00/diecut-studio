@@ -192,10 +192,12 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .sec h3.subh,.sec .subh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 8px;padding-top:12px;border-top:1px dashed var(--line)}
 .sec > h3.subh:first-of-type{border-top:0;padding-top:0;margin-top:6px}
 .secnav{position:sticky;top:0;z-index:3;display:flex;align-items:flex-end;gap:3px;padding:10px 10px 0;background:var(--mat);border-bottom:1px solid var(--line-strong);overflow-x:auto;scrollbar-width:none;container-type:inline-size}
-.secnav button{flex:1 1 0;min-width:52px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:-1px;padding:8px 6px 9px;border:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--mat) 55%,var(--panel));color:var(--muted);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .12s,color .12s}
+.secnav button{flex:1 0 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:-1px;padding:8px 6px 9px;border:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--mat) 55%,var(--panel));color:var(--muted);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .12s,color .12s}
 .secnav button:hover{color:var(--fg)}
 .secnav button span{white-space:nowrap}
-@container (max-width:420px){.secnav button .ic{display:none}.secnav button{min-width:0;padding-left:2px;padding-right:2px}}
+.secnav.t1 button .ic{display:none}.secnav.t1 button{padding-left:7px;padding-right:7px}
+.secnav.t2{gap:2px;padding-left:6px;padding-right:6px}.secnav.t2 button{padding-left:4px;padding-right:4px;font-size:11.5px}
+.secnav.t3 button{font-size:10.5px;letter-spacing:-.02em;padding-left:3px;padding-right:3px}
 .secnav button .ic{width:14px;height:14px}
 .secnav button[aria-selected="true"]{background:var(--panel);color:var(--fg);border-bottom-color:var(--panel);padding-top:10px;box-shadow:0 -3px 8px rgba(20,26,24,.06)}
 .side.tabbed .sec[data-k]{display:none}
@@ -456,7 +458,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <div class="btns"><button class="btn mini" id="btn-fill" type="button">填满空位</button><button class="btn mini" id="btn-dup" type="button">再加一张</button><button class="btn mini" id="btn-del" type="button">移除此图块</button><button class="btn mini" id="btn-arrange" type="button">全部重新排列</button></div>
         <p class="hint">拖动图块即可移动。<kbd>Ctrl</kbd>+<kbd>D</kbd> 再加一张，<kbd>Delete</kbd> 移除<br>刀线和背景在<b>单张</b>画面中修改。</p>
       </section>
-      <nav class="secnav" id="secnav" role="tablist" aria-label="设置分区"><button type="button" role="tab" data-go="form"><svg class="ic" viewBox="0 0 16 16"><path d="M4 3.5h8l-1 9H5z" stroke-dasharray="2 1.6"/></svg><span>形状</span></button><button type="button" role="tab" data-go="prod" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="4" r="1.6"/><path d="M5 6.5h6l.8 6.5H4.2z"/></svg><span>产品</span></button><button type="button" role="tab" data-go="print"><svg class="ic" viewBox="0 0 16 16"><path d="M4.5 6V2.5h7V6M4.5 11h-2V6.5h11V11h-2M4.5 9h7v4.5h-7z"/></svg><span id="tab-print">背景色</span></button><button type="button" role="tab" data-go="v3" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2 13.5 5v6L8 14 2.5 11V5zM2.5 5 8 8l5.5-3M8 8v6"/></svg><span>3D</span></button><button type="button" role="tab" data-go="save"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10"/></svg><span>保存</span></button></nav>
+      <nav class="secnav" id="secnav" role="tablist" aria-label="设置分区"><button type="button" role="tab" data-go="form"><svg class="ic" viewBox="0 0 16 16"><path d="M4 3.5h8l-1 9H5z" stroke-dasharray="2 1.6"/></svg><span>形状</span></button><button type="button" role="tab" data-go="prod" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="4" r="1.6"/><path d="M5 6.5h6l.8 6.5H4.2z"/></svg><span>产品</span></button><button type="button" role="tab" data-go="layer" data-for="korotto"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2.5 14 5.5 8 8.5 2 5.5zM2 8.5l6 3 6-3M2 11l6 3 6-3"/></svg><span>图层</span></button><button type="button" role="tab" data-go="print"><svg class="ic" viewBox="0 0 16 16"><path d="M4.5 6V2.5h7V6M4.5 11h-2V6.5h11V11h-2M4.5 9h7v4.5h-7z"/></svg><span id="tab-print">背景色</span></button><button type="button" role="tab" data-go="v3" data-for="keyring korotto stand"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2 13.5 5v6L8 14 2.5 11V5zM2.5 5 8 8l5.5-3M8 8v6"/></svg><span>3D</span></button><button type="button" role="tab" data-go="save"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10"/></svg><span>保存</span></button></nav>
 
       <section class="sec" data-k="form">
         <h2>形状</h2>
@@ -623,13 +625,6 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
           <input id="shr" type="range" min="0" max="30" step="0.5">
           <p class="hint">刀线圆角半径。不能小于外扩</p>
         </div>
-        <div class="field" data-for="korotto">
-          <div class="row"><span class="l">图层</span><span class="btns"><button class="btn mini" id="btn-layer-all" type="button" hidden>全部显示</button><button class="btn mini" id="btn-layer" type="button">添加图层</button></span></div>
-          <input id="layer-input" type="file" accept="image/*" multiple hidden>
-          <div class="shlist" id="layer-list"></div>
-          <p class="warn" id="layer-ai-note" hidden>AI 文件无法保存透明度，<b>每块板都会垫上白底</b>。建议给印厂发送 <b>PDF</b>。</p>
-          <p class="hint">叠放多块板营造立体感。每块板各印一张图。<br>请放入<b>相同画布尺寸</b>绘制的图片。刀线为所有图层合并后的形状。</p>
-        </div>
         <label class="opt" data-for="keyring"><span>挂孔<small>自动放在图案最上方。可在画布上拖动</small></span><input class="sw" id="hole" type="checkbox"></label>
         <div class="sub" id="f-hole" data-for="keyring">
           <div class="field">
@@ -682,8 +677,39 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         </div>
       </section>
 
+      <section class="sec" data-k="layer" data-for="korotto">
+        <h2>图层</h2>
+        <div class="field">
+          <div class="row"><span class="l">叠加板</span><span class="btns"><button class="btn mini" id="btn-layer-all" type="button" hidden>全部显示</button><button class="btn mini" id="btn-layer" type="button">添加图层</button></span></div>
+          <input id="layer-input" type="file" accept="image/*" multiple hidden>
+          <div class="shlist" id="layer-list"></div>
+          <p class="warn" id="layer-ai-note" hidden>AI 文件无法保存透明度，<b>每块板都会垫上白底</b>。建议给印厂发送 <b>PDF</b>。</p>
+          <p class="hint">叠放多块板营造立体感。每块板各印一张图。<br>请放入<b>相同画布尺寸</b>绘制的图片。刀线为所有图层合并后的形状。</p>
+        </div>
+      </section>
+
       <section class="sec" data-k="print">
         <h2 id="print-title">背景色</h2>
+        <div data-for="keyring korotto stand">
+        <h3 class="subh">背面与白墨</h3>
+        <div class="field">
+          <div class="row"><span class="l">背面图案</span><span class="btns"><button class="btn mini" id="btn-back" type="button">打开背面</button><button class="btn mini" id="btn-back-rm" type="button" hidden>移除</button></span></div>
+          <input id="back-input" type="file" accept="image/*" hidden>
+          <p class="hint" id="back-name">无</p>
+          <p class="hint">用于双面印刷。请放入<b>与正面同尺寸</b>的图片。<br>文件名为<b>正面名称_back</b>时，一起打开会自动配对。</p>
+        </div>
+        <label class="opt"><span>背面左右镜像<small>开: 按翻过来看到的样子绘制 · 关: 叠在正面上绘制</small></span><input class="sw" id="bflip" type="checkbox"></label>
+        <label class="opt"><span>同时保存白墨<small>有背景时白墨覆盖刀线内全部，无背景时只覆盖图案部分</small></span><input class="sw" id="white" type="checkbox"></label>
+        <div class="sub" id="f-white">
+          <div class="field">
+            <div class="row"><label for="ws">白墨内缩</label><span class="num"><input id="ws-n" type="number" min="0" max="0.5" step="0.05" aria-label="白墨内缩 mm">mm</span></div>
+            <input id="ws" type="range" min="0" max="0.5" step="0.05">
+            <p class="hint">为避免印刷偏移时白墨外露而内缩的宽度</p>
+          </div>
+          <div class="row"><span class="l">显示颜色</span><div class="color" style="flex:0 0 132px"><input type="color" id="wc" aria-label="选择白墨显示颜色"><input class="hex" type="text" id="wc-hex" maxlength="7" spellcheck="false" autocomplete="off" aria-label="白墨显示颜色色值"></div></div>
+          <label class="opt"><span>预览白墨<small>用显示颜色标出白墨的位置</small></span><input class="sw" id="wprev" type="checkbox"></label>
+        </div>
+        </div>
         <h3 class="subh">背景</h3>
         <div class="seg" role="radiogroup" aria-label="背景类型">
           <label><input type="radio" name="bgtype" id="bg-none" value="none"><span>无</span></label>
@@ -710,26 +736,6 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
           <div class="row"><label for="bleed">出血</label><span class="num"><input id="bleed-n" type="number" min="0" max="3" step="0.1" aria-label="出血 mm">mm</span></div>
           <input id="bleed" type="range" min="0" max="3" step="0.1">
           <p class="hint">为避免切偏时露出白边，背景<b>超出刀线额外填充的宽度</b></p>
-        </div>
-        <div data-for="keyring korotto stand">
-        <h3 class="subh">背面与白墨</h3>
-        <div class="field">
-          <div class="row"><span class="l">背面图案</span><span class="btns"><button class="btn mini" id="btn-back" type="button">打开背面</button><button class="btn mini" id="btn-back-rm" type="button" hidden>移除</button></span></div>
-          <input id="back-input" type="file" accept="image/*" hidden>
-          <p class="hint" id="back-name">无</p>
-          <p class="hint">用于双面印刷。请放入<b>与正面同尺寸</b>的图片。<br>文件名为<b>正面名称_back</b>时，一起打开会自动配对。</p>
-        </div>
-        <label class="opt"><span>背面左右镜像<small>开: 按翻过来看到的样子绘制 · 关: 叠在正面上绘制</small></span><input class="sw" id="bflip" type="checkbox"></label>
-        <label class="opt"><span>同时保存白墨<small>有背景时白墨覆盖刀线内全部，无背景时只覆盖图案部分</small></span><input class="sw" id="white" type="checkbox"></label>
-        <div class="sub" id="f-white">
-          <div class="field">
-            <div class="row"><label for="ws">白墨内缩</label><span class="num"><input id="ws-n" type="number" min="0" max="0.5" step="0.05" aria-label="白墨内缩 mm">mm</span></div>
-            <input id="ws" type="range" min="0" max="0.5" step="0.05">
-            <p class="hint">为避免印刷偏移时白墨外露而内缩的宽度</p>
-          </div>
-          <div class="row"><span class="l">显示颜色</span><div class="color" style="flex:0 0 132px"><input type="color" id="wc" aria-label="选择白墨显示颜色"><input class="hex" type="text" id="wc-hex" maxlength="7" spellcheck="false" autocomplete="off" aria-label="白墨显示颜色色值"></div></div>
-          <label class="opt"><span>预览白墨<small>用显示颜色标出白墨的位置</small></span><input class="sw" id="wprev" type="checkbox"></label>
-        </div>
         </div>
       </section>
 
@@ -3082,7 +3088,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    const t = tipping(), bwmm = ((S.baseSpan[1] - S.baseSpan[0]) / pxmm()).toFixed(1);
    if (t === 2) w.push(F("重心在底边({0} mm)之外，会倒。请加宽底边或调整左右位置。", bwmm)); else if (t === 1) w.push(F("重心偏向底边({0} mm)一端，容易倒。", bwmm));
   }
-  const kw = k => new RegExp(k), secOf = t => kw("插片|插槽|底座|碰撞|容易倒").test(t) ? "prod" : kw("背面|正反").test(t) ? "print" : kw("挂孔|孔边|重心|底边|图层|更窄|最小宽度").test(t) ? "prod" : "form";
+  const kw = k => new RegExp(k), secOf = t => kw("插片|插槽|底座|碰撞|容易倒").test(t) ? "prod" : kw("背面|正反").test(t) ? "print" : kw("图层").test(t) && PROD === "korotto" ? "layer" : kw("挂孔|孔边|重心|底边|图层|更窄|最小宽度").test(t) ? "prod" : "form";
   const wb = $("warn");
   wb.hidden = !w.length;
   wb.textContent = "";
@@ -5467,6 +5473,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   $("tab-print").textContent = PROD === "sticker" ? "背景色" : "白墨印刷";
   $("print-title").textContent = PROD === "sticker" ? "背景色" : "白墨印刷 · 背景";
   $("acr-title").textContent = PROD === "keyring" ? "亚克力钥匙扣" : PROD === "stand" ? "亚克力" : "亚克力砖";
+  fitNav();
  }
  async function restore() {
   db = await openDb();
@@ -6629,7 +6636,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  }
  async function saveVideo() {
   if (!V3.on || !V3.gl || V3.rec) return;
-  const mime = [ "video/webm;codecs=vp9", "video/webm", "video/mp4" ].find((t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)));
+  const mime = [ "video/mp4;codecs=avc1.640028", "video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm" ].find((t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)));
   if (!mime || !cv3.captureStream) return toast("此浏览器无法生成视频。请使用最新的 Chrome 或 Edge 打开。");
   spinStop();
   V3.rec = true;
@@ -6891,6 +6898,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  const TABS = {
   form: [ "form", "view" ],
   prod: [ "prod" ],
+  layer: [ "layer" ],
   print: [ "print" ],
   v3: [ "v3" ],
   save: [ "save" ]
@@ -6908,8 +6916,20 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    if (on) setOpen(sec, true);
   }
   for (const b of nav.querySelectorAll("button")) b.setAttribute("aria-selected", b.dataset.go === t);
+  fitNav();
+ }
+ function fitNav() {
+  const nav = $("secnav");
+  if (!nav || !nav.offsetWidth) return;
+  nav.classList.remove("t1", "t2", "t3");
+  for (const c of [ "t1", "t2", "t3" ]) {
+   if (nav.scrollWidth <= nav.clientWidth + 1) break;
+   nav.classList.add(c);
+  }
  }
  function initNav() {
+  if (window.ResizeObserver) new ResizeObserver((() => fitNav())).observe($("secnav"));
+  if (document.fonts) document.fonts.ready.then(fitNav);
   const side = document.querySelector(".side"), nav = $("secnav");
   side.classList.add("tabbed");
   for (const b of nav.querySelectorAll("button")) b.addEventListener("click", (() => {
