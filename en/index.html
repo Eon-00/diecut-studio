@@ -164,7 +164,25 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .warn button::after{content:" →";opacity:.6}
 .sec.flash{animation:flash 1.2s ease-out}
 @keyframes flash{0%{background:var(--cut-soft)}100%{background:transparent}}
-.dock{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:2px;padding:4px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow);white-space:nowrap}
+.tools{position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow)}
+.tools[hidden]{display:none}
+.tools>button{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:8px;background:none;color:var(--fg)}
+.tools>button:hover{background:var(--field)}
+.tools>button[aria-pressed="true"]{color:var(--cut);background:var(--cut-soft)}
+.tools .ic{width:17px;height:17px}
+.tsize{display:flex;flex-direction:column;align-items:center;margin-top:3px;padding-top:4px;border-top:1px solid var(--line);font-size:11px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.tsize[hidden]{display:none}
+.tsize button{width:28px;height:22px;border:0;border-radius:6px;background:none;font-size:14px;line-height:1;color:var(--fg)}
+.tsize button:hover{background:var(--field)}
+.stage.split .tools{left:12px}
+@media (max-width:519px){.tools{top:auto;bottom:64px;transform:none;flex-direction:row}.tsize{flex-direction:row-reverse;margin:0 0 0 3px;padding:0 0 0 4px;border-top:0;border-left:1px solid var(--line)}}
+.vset{position:relative}
+.vmenu{position:absolute;right:-4px;bottom:calc(100% + 10px);z-index:40;width:270px;padding:8px 12px 10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);white-space:normal;text-align:left}
+.vmenu[hidden]{display:none}
+.vmenu h3{margin:2px 0 4px;font-size:12.5px;font-weight:600}
+.vmenu .opt{padding:8px 0}
+.vmenu .hint{display:block;margin-top:4px}
+.dock{position:absolute;z-index:6;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:2px;padding:4px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow);white-space:nowrap}
 .dock button{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 9px;border:0;border-radius:8px;background:none;font-size:12.5px;font-weight:500}
 .dock button:hover{background:var(--field)}
 .dock button:disabled{opacity:.35;cursor:default;background:none}
@@ -204,9 +222,8 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .side.tabbed .sec[data-k].on{display:flex}
 .side.tabbed .sec[data-k] > .head{cursor:default}
 .side.tabbed .sec[data-k] > .head .chev,.side.tabbed .sec[data-k] > .head .sum{display:none}
-.side.tabbed .sec[data-k="view"].on{border-top:1px solid var(--line)}
 .only3d{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:99px;background:var(--cut-soft);color:var(--cut);font-size:10.5px;font-weight:600;vertical-align:1px}
-#ring-more .seg{margin-top:8px}
+#ring-more>.l{display:block;margin-top:14px}#ring-more .seg{margin-top:6px}
 .btn.warnbtn{background:var(--cut);color:#fff;border-color:var(--cut)}
 .open-cta{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);z-index:5;display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:99px;background:var(--cut);color:#fff;font-weight:700;font-size:14px;box-shadow:var(--shadow);cursor:pointer}
 .open-cta .ic{stroke:#fff}
@@ -386,6 +403,13 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <span class="v3grp v3save"><button type="button" id="v3-shot" title="Saves the current view as PNG. Choose Transparent for a PNG with no background">Image</button><button type="button" id="v3-views" title="Saves front, side, back and angled views in one PNG">4 views</button><button type="button" id="v3-video" title="Saves a 4-second video of one full turn">Spin video</button></span>
       </div>
       <div class="chip tl" id="chip-file"></div>
+      <div class="tools" id="tools" role="toolbar" aria-label="Edit cut line" hidden>
+        <button type="button" data-t="move" title="Move (V)" aria-label="Move"><svg class="ic" viewBox="0 0 16 16"><path d="M8 1.8v12.4M1.8 8h12.4M6.2 3.6 8 1.8l1.8 1.8M6.2 12.4 8 14.2l1.8-1.8M3.6 6.2 1.8 8l1.8 1.8M12.4 6.2 14.2 8l-1.8 1.8"/></svg></button>
+        <button type="button" data-t="brush" title="Brush (B): painted areas go inside the cut line" aria-label="Brush"><svg class="ic" viewBox="0 0 16 16"><path d="M13.6 2.4 7.4 8.6M9 4.2l2.8 2.8M7.4 8.6c-1.6-.6-3.4.2-3.6 2.2-.1 1.3-.6 2.1-1.6 2.5 2.6.6 5.4.1 5.9-2.4.2-.9 0-1.7-.7-2.3z"/></svg></button>
+        <button type="button" data-t="erase" title="Eraser (E): erased areas go outside the cut line" aria-label="Eraser"><svg class="ic" viewBox="0 0 16 16"><path d="M9.2 2.6 13.4 6.8 7.2 13H4.6L2.6 11zM5.9 5.9l4.2 4.2M8 13h5.5"/></svg></button>
+        <button type="button" data-t="push" title="Push (W): drag the cut line to reshape it" aria-label="Push"><svg class="ic" viewBox="0 0 16 16"><path d="M12.5 2.5c-2.5 2-2.5 9 0 11M2.5 8h6.5M6.8 5.6 9.2 8l-2.4 2.4"/></svg></button>
+        <div class="tsize" id="tools-size" hidden><button type="button" id="ts-up" aria-label="Thicker" title="Thicker (])">+</button><span id="ts-v">3</span><button type="button" id="ts-dn" aria-label="Thinner" title="Thinner ([)">−</button></div>
+      </div>
       <div class="chip tr">1 grid = 10 mm</div>
       <button class="chip wbadge" id="warn-badge" type="button" hidden></button>
       <div class="dock" role="toolbar" aria-label="View">
@@ -401,6 +425,15 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <button id="btn-side" type="button" aria-pressed="false" title="Show back image" hidden><svg class="ic" viewBox="0 0 16 16"><path d="M8 2.5v11M5.5 4.5 2 8l3.5 3.5zM10.5 4.5 14 8l-3.5 3.5z"/></svg><span class="lbl">Back</span></button>
         <button id="btn-split" type="button" aria-pressed="false" title="Show 2D and 3D side by side" hidden><svg class="ic" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M8 3v10"/></svg><span class="lbl">Split</span></button>
         <button id="btn-3d" type="button" aria-pressed="false" title="Rotate the finished acrylic piece" hidden><svg class="ic" viewBox="0 0 16 16"><path d="M8 1.8 13.5 5v6L8 14.2 2.5 11V5zM2.5 5 8 8.2 13.5 5M8 8.2v6"/></svg><span class="lbl">3D</span></button>
+        <span class="sep"></span>
+        <div class="vset"><button id="btn-vset" type="button" aria-haspopup="true" aria-expanded="false" title="Display settings" aria-label="Display settings"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.8v1.8M8 12.4v1.8M1.8 8h1.8M12.4 8h1.8M3.6 3.6l1.3 1.3M11.1 11.1l1.3 1.3M3.6 12.4l1.3-1.3M11.1 4.9l1.3-1.3"/></svg></button>
+        <div class="vmenu" id="view-menu" hidden>
+        <h3>Display</h3>
+        <label class="opt"><span>Sticker look<small>Fades the bleed outside the cut line</small></span><input class="sw" id="paper" type="checkbox"></label>
+        <label class="opt"><span>Show anchor points<small>The anchor points you'd see in Illustrator</small></span><input class="sw" id="nodes" type="checkbox"></label>
+        <label class="opt"><span>Show all hints<small>When off, hints appear only when you press ? next to a label</small></span><input class="sw" id="help" type="checkbox"></label>
+        <p class="hint">Scroll to zoom, drag to pan · Hold <kbd>Space</kbd> to hide cut lines</p>
+        </div></div>
       </div>
       <div class="intro" id="intro" hidden>
         <div class="card">
@@ -504,7 +537,8 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <label class="opt"><span>Fill inner holes<small>No cut lines for holes inside the artwork</small></span><input class="sw" id="holes" type="checkbox"></label>
         </details>
         <div class="subh"><h3>Edit cut line</h3><span class="hint" id="ed-count">No edits</span></div>
-        <div class="seg" role="radiogroup" aria-label="Tool">
+        <p class="hint">Pick tools from the <b>toolbar on the canvas</b>.</p>
+        <div class="seg" role="radiogroup" aria-label="Tool" hidden>
           <label><input type="radio" name="tool" id="tool-move" checked><span>Move</span></label>
           <label><input type="radio" name="tool" id="tool-brush"><span>Brush</span></label>
           <label><input type="radio" name="tool" id="tool-erase"><span>Eraser</span></label>
@@ -759,14 +793,17 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <div class="field v3only" data-for="keyring">
           <span class="l">Keyring</span>
           <div class="seg" role="radiogroup" aria-label="3D preview keyring"><label><input type="radio" name="ring3" id="ring3-ring" checked><span>Split</span></label><label><input type="radio" name="ring3" id="ring3-dring"><span>Clasp</span></label><label><input type="radio" name="ring3" id="ring3-ball"><span>Ball</span></label><label><input type="radio" name="ring3" id="ring3-jump"><span>Jump</span></label><label><input type="radio" name="ring3" id="ring3-none"><span>None</span></label></div>
-          <details class="adv" id="ring-more"><summary id="ring-sum">Color · Pose · Multiple charms</summary>
+          <div id="ring-more">
+          <span class="l">Ring color</span>
           <div class="seg" role="radiogroup" aria-label="Ring color"><label><input type="radio" name="rcol" id="rcol-silver" checked><span>Silver</span></label><label><input type="radio" name="rcol" id="rcol-gold"><span>Gold</span></label><label><input type="radio" name="rcol" id="rcol-pink"><span>Pink gold</span></label><label><input type="radio" name="rcol" id="rcol-black"><span>Black</span></label></div>
+          <span class="l">Pose</span>
           <div class="seg" role="radiogroup" aria-label="Pose"><label><input type="radio" name="kpose" id="kpose-hang" checked><span>Hanging</span></label><label><input type="radio" name="kpose" id="kpose-lay"><span>Lying flat</span></label></div>
+          <span class="l">Multiple charms</span>
           <div class="seg" role="radiogroup" aria-label="Multiple charms"><label><input type="radio" name="kmulti" id="kmulti-off" checked><span>One</span></label><label><input type="radio" name="kmulti" id="kmulti-bunch"><span>One ring</span></label><label><input type="radio" name="kmulti" id="kmulti-chain"><span>Chain</span></label></div>
           <p class="hint" id="kmulti-hint" hidden></p>
           <div class="btns" id="klay-btns" hidden><button class="btn mini" id="btn-klay-mess" type="button">Scatter</button><button class="btn mini" id="btn-klay-line" type="button">Straighten</button></div>
           <div id="chain-hole" hidden><button class="btn mini" id="btn-chain-hole" type="button">Add bottom holes for chain (except the last piece)</button><p class="warn">This adds holes to <b>the cut lines in your saved files</b>, not just the 3D view.</p></div>
-          </details>
+          </div>
         </div>
         <p class="hint">Background, shadow, card comparison and <b>image/video saving</b> are in the toolbar at the top of the 3D view.</p>
       </section>
@@ -790,13 +827,6 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         </details>
       </section>
 
-      <section class="sec" data-k="view">
-        <h2>Display</h2>
-        <label class="opt"><span>Sticker look<small>Fades the bleed outside the cut line</small></span><input class="sw" id="paper" type="checkbox"></label>
-        <label class="opt"><span>Show anchor points<small>The anchor points you'd see in Illustrator</small></span><input class="sw" id="nodes" type="checkbox"></label>
-        <label class="opt"><span>Show all hints<small>When off, hints appear only when you press ? next to a label</small></span><input class="sw" id="help" type="checkbox"></label>
-        <p class="hint">Scroll to zoom, drag to pan · Hold <kbd>Space</kbd> to hide cut lines</p>
-      </section>
     </aside>
   </div>
 </div>
@@ -2866,12 +2896,22 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   syncEdits();
   draw();
  }
+ function syncTools() {
+  const bar = $("tools");
+  if (!bar) return;
+  bar.hidden = SH.on || !items.length || V3.on && !splitOn();
+  for (const b of bar.querySelectorAll("[data-t]")) b.setAttribute("aria-pressed", b.dataset.t === S.tool);
+  $("tools-size").hidden = S.tool === "move";
+  $("ts-v").textContent = S.bs;
+  $("tools-size").title = (S.tool === "push" ? "Range " : "Size ") + S.bs + " mm";
+ }
  function syncEdits() {
   const n = S.edits.length;
   $("ed-count").textContent = n ? F("{0} strokes edited", n) : "No edits";
   $("btn-ed-undo").disabled = $("btn-ed-clear").disabled = !n;
   $("f-brush").hidden = S.tool === "move";
   $("bs-label").textContent = S.tool === "push" ? "Range" : "Size";
+  syncTools();
   $("tool-hint").innerHTML = S.tool === "push" ? "Grab <b>a round marker on the cut line</b> and drag. Larger sizes move a wider area." : "Areas painted with the <b>brush</b> go inside the cut line; areas erased with the <b>eraser</b> go outside. Choose Move to pan the view.";
  }
  function slotHit(e) {
@@ -3212,7 +3252,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    if (p === "sticker") {
     o.white = false;
     o.thin = false;
-   }
+   } else o.thin = true;
   }
   if (p === "stand") ensureStand();
   for (const it of items) it.dirty = true;
@@ -6181,32 +6221,40 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
     const s = i / 400 * Math.PI * 2;
     pts.push([ Wd * Math.sin(s) * Math.sin(s / 2), Hd * (1 - Math.cos(s)) / 2 ]);
    }
+   const cl = 3.2, cyT = Hd - .6;
    let acc = 0, last = pts[0];
-   const bs = [];
+   const bs = [ [ 0, 0 ] ];
    for (const p of pts) {
     acc += Math.hypot(p[0] - last[0], p[1] - last[1]);
     last = p;
-    if (acc >= 2.6 && Math.abs(p[1] - Hd) > 3.4) {
+    if (acc >= 2.6 && (Math.abs(p[0]) > cl - .9 || p[1] < Hd - 8)) {
      acc = 0;
      bs.push(p);
     }
    }
-   bs.push([ 0, 0 ]);
-   const beads = new T.InstancedMesh(geo, mat, bs.length), links = new T.InstancedMesh(link, mat, bs.length - 1), o = new T.Object3D;
+   if (Math.hypot(bs[bs.length - 1][0], bs[bs.length - 1][1]) < 1.6) bs.pop();
+   const gk = bs.findIndex(((p, i) => i < bs.length - 1 && Math.hypot(p[0] - bs[i + 1][0], p[1] - bs[i + 1][1]) >= 4));
+   if (gk >= 0) bs.splice(gk + 1, 0, [ Math.sign(bs[gk][0]) * (cl - .7), cyT ], [ Math.sign(bs[gk + 1][0]) * (cl - .7), cyT ]);
+   const ls = [];
+   bs.forEach(((p, i) => {
+    const q = bs[(i + 1) % bs.length];
+    if (Math.hypot(p[0] - q[0], p[1] - q[1]) < 4) ls.push([ p, q ]);
+   }));
+   const beads = new T.InstancedMesh(geo, mat, bs.length), links = new T.InstancedMesh(link, mat, ls.length), o = new T.Object3D;
    bs.forEach(((p, i) => {
     o.position.set(p[0], p[1], 0);
     o.rotation.set(0, 0, 0);
     o.scale.set(1, 1, 1);
     o.updateMatrix();
     beads.setMatrixAt(i, o.matrix);
-    if (i) {
-     const q = bs[i - 1], dx = p[0] - q[0], dy = p[1] - q[1];
-     o.position.set((p[0] + q[0]) / 2, (p[1] + q[1]) / 2, 0);
-     o.rotation.set(0, 0, Math.atan2(dy, dx) - Math.PI / 2);
-     o.scale.set(1, Math.hypot(dx, dy), 1);
-     o.updateMatrix();
-     links.setMatrixAt(i - 1, o.matrix);
-    }
+   }));
+   ls.forEach((([q, p], i) => {
+    const dx = p[0] - q[0], dy = p[1] - q[1];
+    o.position.set((p[0] + q[0]) / 2, (p[1] + q[1]) / 2, 0);
+    o.rotation.set(0, 0, Math.atan2(dy, dx) - Math.PI / 2);
+    o.scale.set(1, Math.hypot(dx, dy), 1);
+    o.updateMatrix();
+    links.setMatrixAt(i, o.matrix);
    }));
    hw.add(beads, links);
    const bx = new T.Mesh(new T.BoxGeometry(2 * Wd + 2 * br, Hd + 2 * br, 2 * br));
@@ -6216,7 +6264,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    hw.add(bx);
    const cn = new T.Mesh(new T.CylinderGeometry(1.45, 1.45, 6.4, 18), mat);
    cn.rotation.z = Math.PI / 2;
-   cn.position.set(0, Hd, 0);
+   cn.position.set(0, cyT, 0);
    hw.add(cn);
    wh = br;
    R = 0;
@@ -6518,6 +6566,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  function syncSplit() {
   const on = splitOn();
   stage.classList.toggle("split", on);
+  syncTools();
   $("btn-split").hidden = !V3.on || stage.clientWidth < 760;
   $("btn-split").setAttribute("aria-pressed", on);
  }
@@ -6896,7 +6945,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   $("shot-bg").value = UI.shot || "mat";
  }
  const TABS = {
-  form: [ "form", "view" ],
+  form: [ "form" ],
   prod: [ "prod" ],
   layer: [ "layer" ],
   print: [ "print" ],
@@ -6968,6 +7017,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  };
  let introSkip = false;
  function syncIntro() {
+  syncTools();
   for (const b of document.querySelectorAll(".picks button")) b.setAttribute("aria-checked", b.dataset.p === PROD);
   if (INTRO_NOTE[PROD]) $("intro-note").textContent = INTRO_NOTE[PROD];
   const smp = !!items.length && items.every((x => x.isSample || x.gen));
@@ -7034,17 +7084,22 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  bind("relax", "relax", "relax-n");
  bind("bs", "bs", "bs-n", draw);
  for (const t of [ "move", "brush", "erase", "push" ]) $("tool-" + t).addEventListener("change", (() => setTool(t)));
+ for (const b of document.querySelectorAll("#tools [data-t]")) b.addEventListener("click", (() => setTool(b.dataset.t)));
+ const bsStep = d => {
+  S.bs = Math.min(15, Math.max(.5, S.bs + d));
+  $("bs").value = $("bs-n").value = S.bs;
+  setP($("bs"));
+  syncTools();
+  draw();
+ };
+ $("ts-up").addEventListener("click", (() => bsStep(.5)));
+ $("ts-dn").addEventListener("click", (() => bsStep(-.5)));
  $("btn-ed-undo").addEventListener("click", undoEdit);
  $("btn-ed-clear").addEventListener("click", clearEdits);
  addEventListener("keydown", (e => {
   if (SH.on || busy || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
   const k = e.key.toLowerCase();
-  if (e.ctrlKey || e.metaKey) return; else if (e.ctrlKey || e.metaKey || e.altKey) return; else if (k === "b") setTool("brush"); else if (k === "e") setTool("erase"); else if (k === "v") setTool("move"); else if (k === "w") setTool("push"); else if (k === "[" || k === "]") {
-   S.bs = Math.min(15, Math.max(.5, S.bs + (k === "]" ? .5 : -.5)));
-   $("bs").value = $("bs-n").value = S.bs;
-   setP($("bs"));
-   draw();
-  }
+  if (e.ctrlKey || e.metaKey) return; else if (e.ctrlKey || e.metaKey || e.altKey) return; else if (k === "b") setTool("brush"); else if (k === "e") setTool("erase"); else if (k === "v") setTool("move"); else if (k === "w") setTool("push"); else if (k === "[" || k === "]") bsStep(k === "]" ? .5 : -.5);
  }));
  const ringEdit = () => {
   const g = S.rings[S.sel] || S.rings[0];
@@ -7463,7 +7518,8 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    const i = document.querySelector('input[name="' + id + '"]:checked');
    return i ? i.nextElementSibling.textContent : "";
   };
-  $("ring-sum").textContent = [ t("rcol"), t("kpose"), t("kmulti") ].join(" · ");
+  const e = $("ring-sum");
+  if (e) e.textContent = [ t("rcol"), t("kpose"), t("kmulti") ].join(" · ");
  }
  function klayUi() {
   $("klay-btns").hidden = !(G.kmulti === "chain" && G.kpose === "lay");
@@ -7767,6 +7823,22 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  }));
  addEventListener("click", (e => {
   if (!$("fmt-menu").hidden && !e.target.closest("#save-wrap")) menuOpen(false);
+  if (!$("view-menu").hidden && !e.target.closest(".vset")) vmenu(false);
+ }));
+ function vmenu(on) {
+  $("view-menu").hidden = !on;
+  $("btn-vset").setAttribute("aria-expanded", on);
+  $("btn-vset").setAttribute("aria-pressed", on);
+ }
+ $("btn-vset").addEventListener("click", (e => {
+  e.stopPropagation();
+  vmenu($("view-menu").hidden);
+ }));
+ $("view-menu").addEventListener("keydown", (e => {
+  if (e.key === "Escape") {
+   vmenu(false);
+   $("btn-vset").focus();
+  }
  }));
  $("fmt-menu").addEventListener("keydown", (e => {
   const bs = [ ...$("fmt-menu").querySelectorAll("button:not(:disabled)") ], i = bs.indexOf(document.activeElement);
