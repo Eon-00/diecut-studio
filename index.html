@@ -152,6 +152,7 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .v3grp select{padding:0 4px}
 .v3save{background:var(--btn)}
 .v3save button{color:var(--btn-fg);font-weight:600}
+.v3lbl{display:inline-flex;align-items:center;gap:4px;padding:0 6px 0 7px;color:var(--btn-fg);opacity:.75;font-size:11px;border-right:1px solid color-mix(in srgb,var(--btn-fg) 30%,transparent);margin-right:2px}.v3lbl .ic{width:12px;height:12px}
 .v3save button:hover{background:color-mix(in srgb,var(--btn-fg) 16%,transparent)}
 .v3save button:disabled{opacity:.5;cursor:default}
 #view3.checker{background:repeating-conic-gradient(#e7ebe9 0 25%,#fff 0 50%) 0 0/20px 20px}
@@ -170,12 +171,15 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .tools>button:hover{background:var(--field)}
 .tools>button[aria-pressed="true"]{color:var(--cut);background:var(--cut-soft)}
 .tools .ic{width:17px;height:17px}
+.tools .ttl{padding:3px 0 5px;margin-bottom:2px;border-bottom:1px solid var(--line);font-size:10px;line-height:1.25;font-weight:600;color:var(--muted);text-align:center;width:100%}
+.tools.flash{animation:tflash 1.4s ease-out}
+@keyframes tflash{0%,40%{box-shadow:0 0 0 3px var(--cut),var(--shadow)}100%{box-shadow:var(--shadow)}}
 .tsize{display:flex;flex-direction:column;align-items:center;margin-top:3px;padding-top:4px;border-top:1px solid var(--line);font-size:11px;font-variant-numeric:tabular-nums;color:var(--muted)}
 .tsize[hidden]{display:none}
 .tsize button{width:28px;height:22px;border:0;border-radius:6px;background:none;font-size:14px;line-height:1;color:var(--fg)}
 .tsize button:hover{background:var(--field)}
 .stage.split .tools{left:12px}
-@media (max-width:519px){.tools{top:auto;bottom:64px;transform:none;flex-direction:row}.tsize{flex-direction:row-reverse;margin:0 0 0 3px;padding:0 0 0 4px;border-top:0;border-left:1px solid var(--line)}}
+@media (max-width:519px){.tools{top:auto;bottom:64px;transform:none;flex-direction:row}.tools .ttl{width:auto;border-bottom:0;border-right:1px solid var(--line);padding:0 6px 0 2px;margin:0 2px 0 0}.tsize{flex-direction:row-reverse;margin:0 0 0 3px;padding:0 0 0 4px;border-top:0;border-left:1px solid var(--line)}}
 .vset{position:relative}
 .vmenu{position:absolute;right:-4px;bottom:calc(100% + 10px);z-index:40;width:270px;padding:8px 12px 10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);white-space:normal;text-align:left}
 .vmenu[hidden]{display:none}
@@ -298,6 +302,7 @@ input[type=range]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;bac
 .stats dt{font-size:11px;color:var(--muted)}
 .stats dd{margin:2px 0 0;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .warn{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:8px 10px;font-size:12px;margin:0}
+.warn.pc{display:block;line-height:1.5}
 .sample{color:var(--cut);font-weight:500}
 details summary{cursor:pointer;font-size:12.5px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
 details summary::-webkit-details-marker{display:none}
@@ -422,10 +427,11 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <span class="v3grp" role="group" aria-label="시점"><button type="button" data-view="front">정면</button><button type="button" data-view="side">옆</button><button type="button" data-view="top">위</button><button type="button" data-view="iso">비스듬히</button><button type="button" id="v3-reset" title="처음 열었을 때의 각도와 거리로 돌아갑니다">시점 초기화</button><button type="button" id="v3-relay" title="바닥에 눕힌 줄줄이를 한 줄로 다시 놓습니다" hidden>배치 초기화</button></span>
         <span class="v3grp"><button type="button" id="v3-spin" aria-pressed="false" title="천천히 돌려 봅니다">회전</button><button type="button" id="v3-card" aria-pressed="false" title="옆에 신용카드(85.6 × 54 mm)를 세워 크기를 비교합니다">카드</button><button type="button" id="v3-shadow" aria-pressed="true" title="바닥 그림자를 보이거나 숨깁니다. 저장하는 이미지·영상에도 그대로 적용됩니다">그림자</button></span>
         <span class="v3grp"><select id="shot-bg" aria-label="배경"><option value="mat">바탕</option><option value="white">흰색</option><option value="clear">투명</option></select></span>
-        <span class="v3grp v3save"><button type="button" id="v3-shot" title="지금 보이는 모습을 PNG로 저장합니다. 투명을 고르면 배경 없는 PNG가 됩니다">이미지</button><button type="button" id="v3-views" title="정면, 옆, 뒤, 비스듬히 네 방향을 한 장에 담아 PNG로 저장합니다">4방향</button><button type="button" id="v3-video" title="한 바퀴 도는 4초짜리 영상으로 저장합니다">회전 영상</button></span>
+        <span class="v3grp v3save"><span class="v3lbl"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v7.5M5 7l3 3 3-3M3 13.5h10"/></svg>저장</span><button type="button" id="v3-shot" title="지금 보이는 모습을 PNG로 저장합니다. 투명을 고르면 배경 없는 PNG가 됩니다">사진</button><button type="button" id="v3-views" title="네 방향에서 본 모습을 한 장에 담아 PNG로 저장합니다. 바닥에 눕힌 키링은 위와 비스듬한 세 방향에서 찍습니다">4방향 사진</button><button type="button" id="v3-video" title="한 바퀴 도는 4초짜리 영상으로 저장합니다">회전 영상</button></span>
       </div>
       <div class="chip tl" id="chip-file"></div>
       <div class="tools" id="tools" role="toolbar" aria-label="칼선 고치기" hidden>
+        <span class="ttl">칼선<br>고치기</span>
         <button type="button" data-t="move" title="이동 (V)" aria-label="이동"><svg class="ic" viewBox="0 0 16 16"><path d="M8 1.8v12.4M1.8 8h12.4M6.2 3.6 8 1.8l1.8 1.8M6.2 12.4 8 14.2l1.8-1.8M3.6 6.2 1.8 8l1.8 1.8M12.4 6.2 14.2 8l-1.8 1.8"/></svg></button>
         <button type="button" data-t="brush" title="브러시 (B): 칠한 곳이 칼선 안쪽이 됩니다" aria-label="브러시"><svg class="ic" viewBox="0 0 16 16"><path d="M13.6 2.4 7.4 8.6M9 4.2l2.8 2.8M7.4 8.6c-1.6-.6-3.4.2-3.6 2.2-.1 1.3-.6 2.1-1.6 2.5 2.6.6 5.4.1 5.9-2.4.2-.9 0-1.7-.7-2.3z"/></svg></button>
         <button type="button" data-t="erase" title="지우개 (E): 지운 곳이 칼선 바깥이 됩니다" aria-label="지우개"><svg class="ic" viewBox="0 0 16 16"><path d="M9.2 2.6 13.4 6.8 7.2 13H4.6L2.6 11zM5.9 5.9l4.2 4.2M8 13h5.5"/></svg></button>
@@ -585,7 +591,9 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <label class="opt"><span>내부 구멍 메우기<small>그림 안쪽 뚫린 곳에 칼선을 만들지 않습니다</small></span><input class="sw" id="holes" type="checkbox"></label>
         </details>
         <div class="subh"><h3>칼선 고치기</h3><span class="hint" id="ed-count">고친 곳 없음</span></div>
-        <p class="hint">도구는 <b>캔버스 위 도구줄</b>에서 고릅니다.</p>
+        <p class="hint">캔버스 <b>왼쪽 도구줄</b>(폰은 아래쪽)에서 <b>브러시 · 지우개 · 밀기</b>를 고르면 바로 고칠 수 있습니다.</p>
+        <p class="warn pc" id="ed-pc"><b>컴퓨터에서 작업</b>하는 것을 권장합니다. 폰에서는 손가락에 가려 세밀하게 고치기 어렵습니다.</p>
+        <div class="btns"><button class="btn mini" id="btn-tools-show" type="button">도구줄 위치 보기</button></div>
         <div class="seg" role="radiogroup" aria-label="도구" hidden>
           <label><input type="radio" name="tool" id="tool-move" checked><span>이동</span></label>
           <label><input type="radio" name="tool" id="tool-brush"><span>브러시</span></label>
@@ -2948,7 +2956,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  function syncTools() {
   const bar = $("tools");
   if (!bar) return;
-  bar.hidden = SH.on || !items.length || V3.on && !splitOn();
+  bar.hidden = SH.on || !items.length || items.every((x => x.isSample || x.gen)) || V3.on && !splitOn();
   for (const b of bar.querySelectorAll("[data-t]")) b.setAttribute("aria-pressed", b.dataset.t === S.tool);
   $("tools-size").hidden = S.tool === "move";
   $("ts-v").textContent = S.bs;
@@ -6725,14 +6733,37 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   gl.setPixelRatio(1);
   gl.setSize(T, T, false);
   shotClear();
-  const d0 = V3.dist;
-  V3.dist = V3.rad / Math.sin(16 * Math.PI / 180) * 1.02;
-  [ [ 0, .06, "정면" ], [ Math.PI / 2, .06, "옆" ], [ Math.PI, .06, "뒤" ], [ .6, .3, "비스듬히" ] ].forEach((([th, ph], i) => {
+  const d0 = V3.dist, t0 = V3.tgt;
+  const Tm = THREE, box = new Tm.Box3;
+  V3.root.updateWorldMatrix(true, true);
+  V3.root.traverse((o => {
+   if (o.isMesh && o.visible) box.expandByObject(o);
+  }));
+  const ctr = box.getCenter(new Tm.Vector3), cs = [];
+  for (let i = 0; i < 8; i++) cs.push(new Tm.Vector3(i & 1 ? box.max.x : box.min.x, i & 2 ? box.max.y : box.min.y, i & 4 ? box.max.z : box.min.z));
+  const fitAt = (th, ph) => {
+   V3.tgt = [ ctr.x, ctr.y, ctr.z ];
+   V3.dist = V3.rad / Math.sin(16 * Math.PI / 180) * 1.02;
+   for (let k = 0; k < 3; k++) {
+    camAt(th, ph, 1);
+    V3.cam.updateMatrixWorld();
+    let m = 0;
+    for (const c of cs) {
+     const q = c.clone().project(V3.cam);
+     m = Math.max(m, Math.abs(q.x), Math.abs(q.y));
+    }
+    V3.dist *= Math.max(.2, m / .84);
+   }
    camAt(th, ph, 1);
+  };
+  const lay = PROD === "keyring" && G.kpose === "lay", views = lay ? [ [ 0, 1.5 ], [ 0, .75 ], [ Math.PI / 2, .75 ], [ Math.PI * 1.25, .75 ] ] : [ [ 0, .06 ], [ Math.PI / 2, .06 ], [ Math.PI, .06 ], [ .6, .3 ] ];
+  views.forEach((([th, ph], i) => {
+   fitAt(th, ph);
    gl.render(V3.scene, V3.cam);
    x.drawImage(cv3, i % 2 * T, Math.floor(i / 2) * T);
   }));
   V3.dist = d0;
+  V3.tgt = t0;
   const blob = await new Promise((res => out.toBlob(res, "image/png")));
   render3d();
   if (blob) save(shotName() + "_4views.png", blob);
@@ -7203,7 +7234,14 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  bind("relax", "relax", "relax-n");
  bind("bs", "bs", "bs-n", draw);
  for (const t of [ "move", "brush", "erase", "push" ]) $("tool-" + t).addEventListener("change", (() => setTool(t)));
- for (const b of document.querySelectorAll("#tools [data-t]")) b.addEventListener("click", (() => setTool(b.dataset.t)));
+ for (const b of document.querySelectorAll("#tools [data-t]")) b.addEventListener("click", (() => {
+  setTool(b.dataset.t);
+  if (b.dataset.t !== "move" && matchMedia("(pointer:coarse) and (max-width:700px)").matches && !UI.edTouch) {
+   UI.edTouch = 1;
+   saveUI();
+   toast("칼선 고치기는 컴퓨터에서 작업하는 것을 권장합니다. 폰에서는 화면을 크게 확대한 뒤 고쳐 주세요.");
+  }
+ }));
  const bsStep = d => {
   S.bs = Math.min(15, Math.max(.5, S.bs + d));
   $("bs").value = $("bs-n").value = S.bs;
@@ -7211,6 +7249,17 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   syncTools();
   draw();
  };
+ $("btn-tools-show").addEventListener("click", (() => {
+  if (SH.on) return toast("시트 배치 화면에서는 칼선을 고칠 수 없습니다. 낱장으로 바꿔 주세요.");
+  if (V3.on && !splitOn()) close3d();
+  const bar = $("tools");
+  syncTools();
+  if (bar.hidden) return toast("그림을 먼저 열어 주세요.");
+  bar.classList.remove("flash");
+  void bar.offsetWidth;
+  bar.classList.add("flash");
+  if (getComputedStyle(document.querySelector(".side")).position === "fixed") document.querySelector(".side").classList.remove("full");
+ }));
  $("ts-up").addEventListener("click", (() => bsStep(.5)));
  $("ts-dn").addEventListener("click", (() => bsStep(-.5)));
  $("btn-ed-undo").addEventListener("click", undoEdit);
