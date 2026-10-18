@@ -189,6 +189,27 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .dock button[aria-pressed="true"]{color:var(--cut);background:var(--cut-soft)}
 .dock .sep{width:1px;height:18px;background:var(--line);margin:0 3px}
 .zoom{font-family:var(--mono);font-size:11.5px;color:var(--muted);min-width:42px;text-align:center}
+dialog.cw{border:0;padding:0;background:none;width:min(440px,calc(100% - 24px));max-height:calc(100% - 24px);color:var(--fg)}
+dialog.cw::backdrop{background:rgba(20,26,24,.38);backdrop-filter:blur(2px)}
+.cw .card{padding:20px;border-radius:16px;background:var(--panel);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px}
+.cw-head{display:flex;align-items:center;justify-content:space-between}.cw-head h2{margin:0;font-size:17px}
+.cw .x{width:30px;height:30px;border:0;border-radius:8px;background:none;font-size:20px;line-height:1;color:var(--muted);cursor:pointer}.cw .x:hover{background:var(--field)}
+.cw-steps{display:flex;gap:6px;margin:0;padding:0;list-style:none;counter-reset:cw}
+.cw-steps li{flex:1;counter-increment:cw;padding:6px 8px;border-radius:8px;background:var(--field);font-size:12px;color:var(--muted);text-align:center}
+.cw-steps li::before{content:counter(cw) ". "}
+.cw-steps li.on{background:var(--cut-soft);color:var(--cut);font-weight:600}.cw-steps li.done{color:var(--fg)}
+.cw-body{display:flex;flex-direction:column;gap:12px}.cw-body[hidden]{display:none}.cw-body p{margin:0;font-size:13px;line-height:1.55}
+.cw-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow:auto}
+.cw-row{display:flex;align-items:center;gap:10px;padding:6px 8px;border:1px solid var(--line);border-radius:10px}
+.cw-row .n{flex:none;width:20px;font-weight:600;color:var(--cut);text-align:center}
+.cw-row img{flex:none;width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--field)}
+.cw-row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px}
+.cw-row .nm small{display:block;color:var(--muted);font-size:11px}
+.cw-row button{flex:none;width:30px;height:30px;border:1px solid var(--line);border-radius:8px;background:var(--panel);cursor:pointer}.cw-row button:disabled{opacity:.3;cursor:default}
+.cw-need{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;background:var(--field)}.cw-need[hidden]{display:none}
+.cw-foot{display:flex;justify-content:space-between;gap:8px}.cw-foot .btn{min-width:96px;justify-content:center}
+.cw-entry{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px dashed var(--cut);border-radius:10px;background:var(--cut-soft)}
+.cw-entry p{margin:0;font-size:12.5px}
 .intro{position:absolute;inset:0;z-index:5;display:grid;place-items:center;padding:16px;background:color-mix(in srgb,var(--mat) 82%,transparent);backdrop-filter:blur(2px)}
 .intro .card{width:min(440px,100%);padding:22px;border-radius:16px;background:var(--panel);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
 .intro h2{margin:0;font-size:17px}
@@ -223,7 +244,7 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .side.tabbed .sec[data-k] > .head{cursor:default}
 .side.tabbed .sec[data-k] > .head .chev,.side.tabbed .sec[data-k] > .head .sum{display:none}
 .only3d{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:99px;background:var(--cut-soft);color:var(--cut);font-size:10.5px;font-weight:600;vertical-align:1px}
-#ring-more>.l{display:block;margin-top:14px}#ring-more .seg{margin-top:6px}
+#ring-more>.l,#ring-more>.row{margin-top:14px}#ring-more>.l{display:block}#ring-more .seg{margin-top:6px}
 .btn.warnbtn{background:var(--cut);color:#fff;border-color:var(--cut)}
 .open-cta{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);z-index:5;display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:99px;background:var(--cut);color:#fff;font-weight:700;font-size:14px;box-shadow:var(--shadow);cursor:pointer}
 .open-cta .ic{stroke:#fff}
@@ -280,8 +301,9 @@ input[type=range]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;bac
 .sample{color:var(--cut);font-weight:500}
 details summary{cursor:pointer;font-size:12.5px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
 details summary::-webkit-details-marker{display:none}
-details summary::after{content:"＋";color:var(--muted);font-weight:400}
-details[open] summary::after{content:"－"}
+details summary::after{content:"";flex:none;width:30px;height:18px;border-radius:9px;background:radial-gradient(circle at 9px 9px,var(--panel) 6.5px,transparent 7.2px) var(--line-strong);transition:background .15s}
+details[open] summary::after{background:radial-gradient(circle at 21px 9px,var(--panel) 6.5px,transparent 7.2px) var(--fg)}
+details summary:focus-visible{outline:2px solid var(--cut);outline-offset:3px;border-radius:4px}
 details .hint{margin-top:10px}
 
 .sec .head{min-height:22px}
@@ -295,7 +317,7 @@ details .hint{margin-top:10px}
 .sec.closed > :not(.head):not(.warn){display:none!important}
 .sec.closed{padding-top:13px;padding-bottom:13px}
 details.adv{border-top:1px dashed var(--line);padding-top:12px}
-details.adv summary{font-size:12px;font-weight:500;color:var(--muted)}
+details.adv summary{font-size:13.5px;font-weight:400;color:var(--fg)}
 details.adv[open]{display:flex;flex-direction:column;gap:14px}
 details.adv[open] summary{margin-bottom:0}
 
@@ -397,7 +419,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
       <canvas id="view3" aria-label="3D 预览" hidden></canvas>
       <div class="chip bl v3bar" id="chip-3d" hidden>
         <span class="v3dim" id="v3-dims"></span>
-        <span class="v3grp" role="group" aria-label="视角"><button type="button" data-view="front">正面</button><button type="button" data-view="side">侧面</button><button type="button" data-view="top">俯视</button><button type="button" data-view="iso">斜视</button></span>
+        <span class="v3grp" role="group" aria-label="视角"><button type="button" data-view="front">正面</button><button type="button" data-view="side">侧面</button><button type="button" data-view="top">俯视</button><button type="button" data-view="iso">斜视</button><button type="button" id="v3-reset" title="恢复到刚打开时的角度和距离">重置视角</button><button type="button" id="v3-relay" title="把平放的串联重新排成一条直线" hidden>重置摆放</button></span>
         <span class="v3grp"><button type="button" id="v3-spin" aria-pressed="false" title="缓慢旋转">旋转</button><button type="button" id="v3-card" aria-pressed="false" title="在旁边立一张信用卡(85.6 × 54 mm)比较大小">卡片</button><button type="button" id="v3-shadow" aria-pressed="true" title="显示或隐藏地面阴影。保存的图片和视频也会同样处理">阴影</button></span>
         <span class="v3grp"><select id="shot-bg" aria-label="背景"><option value="mat">底色</option><option value="white">白色</option><option value="clear">透明</option></select></span>
         <span class="v3grp v3save"><button type="button" id="v3-shot" title="将当前画面保存为 PNG。选择透明则得到无背景的 PNG">图片</button><button type="button" id="v3-views" title="将正面、侧面、背面、斜视四个角度保存在一张 PNG 中">四视图</button><button type="button" id="v3-video" title="保存为旋转一圈的 4 秒视频">旋转视频</button></span>
@@ -435,6 +457,33 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <p class="hint">滚轮缩放，拖动平移 · 按住<kbd>空格</kbd>时隐藏刀线</p>
         </div></div>
       </div>
+      <dialog class="cw" id="cw" aria-labelledby="cw-title">
+        <div class="card">
+          <div class="cw-head"><h2 id="cw-title">制作串联挂件</h2><button type="button" class="x" id="cw-x" aria-label="关闭">×</button></div>
+          <ol class="cw-steps"><li data-s="1">顺序</li><li data-s="2">挂环</li><li data-s="3">孔</li></ol>
+          <div class="cw-body" data-s="1">
+            <p>图片会<b>从1号起依次</b>相连。用箭头调整顺序（最多8个）。</p>
+            <div class="cw-list" id="cw-list"></div>
+            <div class="cw-need" id="cw-need" hidden><p>需要<b>2张以上</b>图片。</p><label class="btn" for="file-input" role="button" tabindex="0">打开文件</label></div>
+          </div>
+          <div class="cw-body" data-s="2" hidden>
+            <p>选择顶部的挂环。<b>仅用于3D预览</b>，不会写入保存的文件。</p>
+            <div class="picks cwpicks" id="cw-ring" role="radiogroup" aria-label="挂环">
+              <button type="button" role="radio" data-r="ring" data-c="silver"><b>双圈</b><small>银色</small></button>
+              <button type="button" role="radio" data-r="ball" data-c="silver"><b>珠链</b><small>银色</small></button>
+              <button type="button" role="radio" data-r="dring" data-c="gold"><b>旋转扣</b><small>金色</small></button>
+              <button type="button" role="radio" data-r="ring" data-c="pink"><b>双圈</b><small>玫瑰金</small></button>
+            </div>
+            <div class="seg" role="radiogroup" aria-label="摆放方式"><label><input type="radio" name="cwpose" id="cwpose-hang" checked><span>悬挂</span></label><label><input type="radio" name="cwpose" id="cwpose-lay"><span>平放</span></label></div>
+          </div>
+          <div class="cw-body" data-s="3" hidden>
+            <p>要串联，每张图片都需要<b>上下两个孔</b>。<br><b>最后一张</b>只需要上孔。</p>
+            <label class="opt"><span>自动打下孔<small>除最后一张外都会加上。保存文件中的刀线也会改变</small></span><input class="sw" id="cw-bot" type="checkbox" checked></label>
+            <p class="hint">之后可以在画布上拖动孔的位置。</p>
+          </div>
+          <div class="cw-foot"><button type="button" class="btn ghost" id="cw-prev">上一步</button><button type="button" class="btn primary" id="cw-next">下一步</button></div>
+        </div>
+      </dialog>
       <div class="intro" id="intro" hidden>
         <div class="card">
           <h2>要做什么?</h2>
@@ -555,6 +604,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
 
       <section class="sec" data-k="prod" data-for="keyring korotto stand">
         <h2 id="acr-title">产品</h2>
+        <div class="cw-entry" data-for="keyring"><p>要把多个<b>串联</b>起来吗？</p><button class="btn mini" type="button" data-cw>制作串联挂件</button></div>
         <div data-for="stand">
         <div class="subh"><h3>立牌主体与底座</h3><button class="btn mini" id="btn-3d-open" type="button">3D 查看</button></div>
         <div class="seg" id="role-wrap" role="radiogroup" aria-label="此图片的用途">
@@ -798,7 +848,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
           <div class="seg" role="radiogroup" aria-label="挂件颜色"><label><input type="radio" name="rcol" id="rcol-silver" checked><span>银色</span></label><label><input type="radio" name="rcol" id="rcol-gold"><span>金色</span></label><label><input type="radio" name="rcol" id="rcol-pink"><span>玫瑰金</span></label><label><input type="radio" name="rcol" id="rcol-black"><span>黑色</span></label></div>
           <span class="l">摆放方式</span>
           <div class="seg" role="radiogroup" aria-label="摆放方式"><label><input type="radio" name="kpose" id="kpose-hang" checked><span>悬挂</span></label><label><input type="radio" name="kpose" id="kpose-lay"><span>平放</span></label></div>
-          <span class="l">多个挂件</span>
+          <div class="row"><span class="l">多个挂件</span><button class="btn mini" type="button" data-cw>快速串联设置</button></div>
           <div class="seg" role="radiogroup" aria-label="多个挂件"><label><input type="radio" name="kmulti" id="kmulti-off" checked><span>仅一个</span></label><label><input type="radio" name="kmulti" id="kmulti-bunch"><span>挂在同一个环上</span></label><label><input type="radio" name="kmulti" id="kmulti-chain"><span>串联</span></label></div>
           <p class="hint" id="kmulti-hint" hidden></p>
           <div class="btns" id="klay-btns" hidden><button class="btn mini" id="btn-klay-mess" type="button">打散</button><button class="btn mini" id="btn-klay-line" type="button">排成一列</button></div>
@@ -3641,6 +3691,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   }));
   $("all-wrap").hidden = items.length < 2 || SH.on;
   $("all-n").textContent = items.length;
+  if ($("cw").open) cwRender();
   refreshTags();
  }
  function railDrag(b, i) {
@@ -6375,7 +6426,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    V3.cache.set(it.id, v);
    return v;
   };
-  let key = PROD + ":" + me.id + (PROD === "keyring" ? ":" + G.ring3 + ":" + G.kpose + ":" + (G.kmulti ? G.kmulti + items.length : 1) : "");
+  let key = PROD + ":" + (PROD === "keyring" && G.kmulti ? "" : me.id) + (PROD === "keyring" ? ":" + G.ring3 + ":" + G.kpose + ":" + (G.kmulti ? G.kmulti + items.length : 1) : "");
   try {
    if (PROD === "stand") {
     const base = me.role === "base" ? me : items.find((b => b.role === "base" && b.slots && b.slots[me.id] && b.slots[me.id].on)), bv = base && part(base, G.bth, "base");
@@ -6407,7 +6458,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
     }
    } else {
     if (PROD === "keyring") {
-     const chain = G.kmulti === "chain", list = (chain ? items.slice(0, 8) : G.kmulti ? [ me, ...items.filter((x => x !== me)) ].slice(0, 8) : [ me ]).map((it => part(it, t, "bottom"))).filter(Boolean);
+     const chain = G.kmulti === "chain", list = (G.kmulti ? items.slice(0, 8) : [ me ]).map((it => part(it, t, "bottom"))).filter(Boolean);
      for (const v of list) {
       v.g.rotation.set(0, 0, 0);
       v.g.position.set(0, 0, 0);
@@ -6505,20 +6556,24 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   }
   V3.root = root;
   V3.scene.add(root);
-  V3.tgt = [ ac.x, ac.y, ac.z ];
+  const tgt = [ ac.x, ac.y, ac.z ];
   V3.rad = Math.max(20, as.length() / 2);
-  const fresh = key !== V3.key;
-  if (fresh || !V3.dragging && (V3.rad > V3.fit * 1.25 || V3.rad < V3.fit * .6)) {
-   if (fresh) {
+  const mkey = PROD + (PROD === "keyring" ? ":" + G.kpose : ""), reset = !V3.key || V3.mkey !== mkey;
+  if (reset || V3.refit || !V3.dragging && (V3.rad > V3.fit * 1.6 || V3.rad < V3.fit * .5)) {
+   V3.tgt = tgt;
+   if (reset) {
     V3.th = .5;
     V3.ph = PROD === "keyring" && G.kpose === "lay" ? .95 : .22;
    }
-   V3.key = key;
+   V3.mkey = mkey;
+   V3.refit = false;
    V3.fit = V3.rad;
    const r = cv3.getBoundingClientRect();
    const P = padsOf(cv3, [ $("chip-3d") ], [ document.querySelector(".dock") ]), ah = Math.max(1, r.height - P.t - P.b);
    V3.dist = V3.rad / Math.sin(16 * Math.PI / 180) * 1.08 * (r.height / ah) / Math.min(1, r.width / ah);
   }
+  if (key !== V3.key && !V3.dragging) V3.tgt = tgt;
+  V3.key = key;
   render3d();
  }
  function render3d() {
@@ -6721,6 +6776,74 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  $("v3-views").addEventListener("click", saveViews);
  $("v3-video").addEventListener("click", saveVideo);
  $("v3-shot").addEventListener("click", saveShot);
+ function layRig(kc, hitW) {
+  const T = THREE, n = kc.pivs.length, a = Array.from({
+   length: n
+  }, ((_, j) => layAng(j))), P = kc.pivs.map((pv => [ pv.position.x, pv.position.y ])), L = [], ph = [];
+  kc.inner.updateWorldMatrix(true, true);
+  for (let j = 0; j < n; j++) {
+   let e;
+   if (j < n - 1) e = P[j + 1]; else {
+    const c = (new T.Box3).setFromObject(kc.pivs[j]).getCenter(new T.Vector3);
+    kc.inner.worldToLocal(c);
+    e = [ c.x, c.y ];
+   }
+   L.push(Math.max(1, Math.hypot(e[0] - P[j][0], e[1] - P[j][1])));
+   ph.push(Math.atan2(e[1] - P[j][1], e[0] - P[j][0]) - a[j]);
+  }
+  const h = kc.inner.worldToLocal(hitW.clone());
+  return {
+   a: a,
+   P: P,
+   L: L,
+   ph: ph,
+   n: n,
+   g: null,
+   h: [ h.x, h.y ]
+  };
+ }
+ function layPull(st, k, tg) {
+  const {a: a, P: P, L: L, ph: ph, n: n} = st, dir = j => [ Math.cos(a[j] + ph[j]), Math.sin(a[j] + ph[j]) ];
+  if (!st.g) {
+   const dx = st.h[0] - P[k][0], dy = st.h[1] - P[k][1], c = Math.cos(-a[k]), s_ = Math.sin(-a[k]);
+   st.g = [ dx * c - dy * s_, dx * s_ + dy * c ];
+  }
+  const ends = [];
+  for (let j = k + 1; j < n; j++) {
+   const d = dir(j);
+   ends[j] = [ P[j][0] + d[0] * L[j], P[j][1] + d[1] * L[j] ];
+  }
+  const fk = from => {
+   for (let j = Math.max(0, from); j < n - 1; j++) {
+    const d = dir(j);
+    P[j + 1] = [ P[j][0] + d[0] * L[j], P[j][1] + d[1] * L[j] ];
+   }
+  };
+  const grab = () => {
+   const c = Math.cos(a[k]), s_ = Math.sin(a[k]);
+   return [ P[k][0] + st.g[0] * c - st.g[1] * s_, P[k][1] + st.g[0] * s_ + st.g[1] * c ];
+  };
+  const lim = 1.5;
+  for (let it = 0; it < 8; it++) {
+   for (let j = k; j >= 0; j--) {
+    const G_ = grab(), a1 = Math.atan2(G_[1] - P[j][1], G_[0] - P[j][0]), a2 = Math.atan2(tg[1] - P[j][1], tg[0] - P[j][0]);
+    let d = Math.atan2(Math.sin(a2 - a1), Math.cos(a2 - a1)) * (j === k ? 1 : .5);
+    if (j > 0) {
+     const nb = a[j] + d - a[j - 1];
+     if (nb > lim) d -= nb - lim; else if (nb < -lim) d -= nb + lim;
+    }
+    for (let q = j; q <= k; q++) a[q] += d;
+    fk(j);
+   }
+  }
+  for (let j = k + 1; j < n; j++) {
+   const e = ends[j];
+   let na = Math.atan2(e[1] - P[j][1], e[0] - P[j][0]) - ph[j], nb = Math.atan2(Math.sin(na - a[j - 1]), Math.cos(na - a[j - 1]));
+   nb = Math.max(-lim, Math.min(lim, nb));
+   a[j] = a[j - 1] + nb;
+   fk(j);
+  }
+ }
  function pick3(e) {
   if (!V3.root || !window.THREE) return null;
   const r = cv3.getBoundingClientRect(), ray = V3.ray || (V3.ray = new THREE.Raycaster);
@@ -6758,6 +6881,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
    drag = k && {
     g: k.g,
     kp: k.kp,
+    p: k.p,
     plane: new THREE.Plane(new THREE.Vector3(0, 1, 0), -k.p.y),
     dx: k.g.position.x - k.p.x,
     dz: k.g.position.z - k.p.z,
@@ -6780,14 +6904,10 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
     V3.ray.setFromCamera(new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, 1 - (e.clientY - r.top) / r.height * 2), V3.cam);
     if (!V3.ray.ray.intersectPlane(drag.plane, v)) return;
     kc.inner.updateWorldMatrix(true, false);
-    const l = kc.inner.worldToLocal(v), pv = kc.pivs[drag.kp];
-    if (!pv) return;
-    const n = kc.pivs.length, a = G.klay = Array.from({
-     length: n
-    }, ((_, j) => layAng(j)));
-    if (drag.off == null) drag.off = a[drag.kp] - (Math.atan2(l.y - pv.position.y, l.x - pv.position.x) + Math.PI / 2);
-    const d = Math.atan2(l.y - pv.position.y, l.x - pv.position.x) + Math.PI / 2 + drag.off - a[drag.kp];
-    for (let j = drag.kp; j < n; j++) a[j] += d;
+    const l = kc.inner.worldToLocal(v);
+    if (!drag.st) drag.st = layRig(kc, drag.p);
+    layPull(drag.st, drag.kp, [ l.x, l.y ]);
+    G.klay = drag.st.a.slice();
     drag.moved = true;
     V3.dragging = true;
     if (!V3.raf) V3.raf = requestAnimationFrame((() => {
@@ -7018,7 +7138,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  let introSkip = false;
  function syncIntro() {
   syncTools();
-  for (const b of document.querySelectorAll(".picks button")) b.setAttribute("aria-checked", b.dataset.p === PROD);
+  for (const b of document.querySelectorAll(".intro .picks button")) b.setAttribute("aria-checked", b.dataset.p === PROD);
   if (INTRO_NOTE[PROD]) $("intro-note").textContent = INTRO_NOTE[PROD];
   const smp = !!items.length && items.every((x => x.isSample || x.gen));
   $("intro").hidden = introSkip || SH.on || !smp;
@@ -7228,7 +7348,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   persist();
  }));
  let botT = 0;
- function addBotHole(e) {
+ function addBotHole(e, sure) {
   const btn = e && e.currentTarget, all = !!btn && btn.id === "btn-chain-hole", me = items[cur];
   const ringsOf = x => x === me ? S.rings : x.own ? x.own.rings : G.rings, holeOf = x => x === me ? S.hole : x.own ? x.own.hole : G.hole, nob = x => x === me ? S.nobot : x.nobot;
   const hasBot = x => holeOf(x) && ringsOf(x).some((g => g.side === "bot")) && !nob(x);
@@ -7236,7 +7356,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   const cnt = all ? line.filter((x => x !== last && !hasBot(x))).length + (last && hasBot(last) ? 1 : 0) : hasBot(me) ? 0 : 1;
   if (!cnt) return toast(all ? "已经开好串联用的孔。" : "已经有底孔了。");
   const lname = last ? last.isSample ? "示例图片" : last.name : "";
-  if (all) {
+  if (all && !sure) {
    if (!botT) {
     btn.dataset.t = btn.textContent;
     btn.textContent = F("再按一次将修改刀线 (最后一张 {0}: 只有一个孔)", lname);
@@ -7377,7 +7497,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  }));
  $("btn-fit").addEventListener("click", (() => {
   if (V3.on) {
-   V3.key = "";
+   V3.refit = true;
    build3d();
   } else fit();
  }));
@@ -7478,10 +7598,10 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   later3d();
  }));
  $("btn-klay-mess").addEventListener("click", (() => {
-  let a = (Math.random() - .5) * .6;
+  const A = .45 + Math.random() * .45, f = .8 + Math.random() * .9, p0 = Math.random() * 6.3, b = (Math.random() - .5) * .5;
   G.klay = Array.from({
    length: 8
-  }, (() => a += (Math.random() - .5) * 1.1));
+  }, ((_, i) => b + A * Math.sin(i * f + p0) + (Math.random() - .5) * .25));
   persist();
   later3d();
  }));
@@ -7490,13 +7610,137 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   persist();
   later3d();
  }));
+ $("v3-relay").addEventListener("click", (() => {
+  G.klay = Array(8).fill(0);
+  persist();
+  later3d();
+  toast("已将串联重新排成一条直线。");
+ }));
+ $("v3-reset").addEventListener("click", (() => {
+  spinStop();
+  V3.key = "";
+  V3.mkey = "";
+  build3d();
+ }));
  for (const k of [ "off", "bunch", "chain" ]) $("kmulti-" + k).addEventListener("change", (() => {
   G.kmulti = k === "off" ? false : k;
   kmultiHint();
   persist();
   later3d();
+  if (k === "chain" && !UI.cwSeen) {
+   UI.cwSeen = 1;
+   saveUI();
+   toast("第一次使用？快速设置可一次搞定顺序、挂环和孔。", {
+    label: "快速设置",
+    fn: cwOpen
+   });
+  }
  }));
- $("btn-chain-hole").addEventListener("click", addBotHole);
+ $("btn-chain-hole").addEventListener("click", (e => addBotHole(e)));
+ let cwStep = 1;
+ function cwRender() {
+  const dlg = $("cw");
+  if (!dlg.open) return;
+  for (const b of dlg.querySelectorAll(".cw-body")) b.hidden = +b.dataset.s !== cwStep;
+  for (const li of dlg.querySelectorAll(".cw-steps li")) {
+   const k = +li.dataset.s;
+   li.classList.toggle("on", k === cwStep);
+   li.classList.toggle("done", k < cwStep);
+  }
+  const line = items.slice(0, 8), list = $("cw-list"), few = items.length < 2;
+  list.textContent = "";
+  line.forEach(((it, i) => {
+   const r = document.createElement("div"), n = document.createElement("span"), im = document.createElement("img"), nm = document.createElement("span"), up = document.createElement("button"), dn = document.createElement("button");
+   r.className = "cw-row";
+   n.className = "n";
+   n.textContent = i + 1;
+   im.src = it.url;
+   im.alt = "";
+   nm.className = "nm";
+   nm.textContent = it.isSample ? "示例图片" : it.name;
+   if (i === line.length - 1 && line.length > 1) {
+    const sm = document.createElement("small");
+    sm.textContent = "最后 · 仅上孔";
+    nm.append(sm);
+   }
+   up.type = dn.type = "button";
+   up.textContent = "↑";
+   dn.textContent = "↓";
+   up.setAttribute("aria-label", "上移");
+   dn.setAttribute("aria-label", "下移");
+   up.disabled = !i || busy;
+   dn.disabled = i === line.length - 1 || busy;
+   up.addEventListener("click", (() => {
+    moveItem(i, i - 1);
+    cwRender();
+   }));
+   dn.addEventListener("click", (() => {
+    moveItem(i, i + 1);
+    cwRender();
+   }));
+   r.append(n, im, nm, up, dn);
+   list.append(r);
+  }));
+  $("cw-need").hidden = !few;
+  for (const b of $("cw-ring").querySelectorAll("button")) b.setAttribute("aria-checked", b.dataset.r === cwPick.r && b.dataset.c === cwPick.c);
+  $("cw-prev").style.visibility = cwStep > 1 ? "" : "hidden";
+  $("cw-next").textContent = cwStep < 3 ? "下一步" : "完成";
+  $("cw-next").disabled = few;
+ }
+ const cwPick = {
+  r: "ring",
+  c: "silver"
+ };
+ function cwOpen() {
+  if (PROD !== "keyring") setProd("keyring");
+  const known = [ ...$("cw-ring").querySelectorAll("button") ].find((b => b.dataset.r === G.ring3 && b.dataset.c === G.rcol));
+  if (known) {
+   cwPick.r = G.ring3;
+   cwPick.c = G.rcol;
+  }
+  $("cwpose-" + (G.kpose === "lay" ? "lay" : "hang")).checked = true;
+  cwStep = 1;
+  $("cw").showModal();
+  cwRender();
+ }
+ function cwDone() {
+  G.ring3 = cwPick.r;
+  G.rcol = cwPick.c;
+  G.kpose = $("cwpose-lay").checked ? "lay" : "hang";
+  G.kmulti = "chain";
+  if (G.kpose === "lay") G.klay = Array(8).fill(0);
+  $("cw").close();
+  syncAcr();
+  kmultiHint();
+  persist();
+  if ($("cw-bot").checked) addBotHole({
+   currentTarget: $("btn-chain-hole")
+  }, true);
+  if (document.querySelector(".side.tabbed")) showTab("v3");
+  if (V3.on) {
+   V3.key = "";
+   V3.mkey = "";
+   later3d();
+  } else open3d();
+ }
+ for (const b of document.querySelectorAll("[data-cw]")) b.addEventListener("click", cwOpen);
+ for (const b of $("cw-ring").querySelectorAll("button")) b.addEventListener("click", (() => {
+  cwPick.r = b.dataset.r;
+  cwPick.c = b.dataset.c;
+  cwRender();
+ }));
+ $("cw-x").addEventListener("click", (() => $("cw").close()));
+ $("cw-prev").addEventListener("click", (() => {
+  cwStep = Math.max(1, cwStep - 1);
+  cwRender();
+ }));
+ $("cw-next").addEventListener("click", (() => {
+  if (items.length < 2) return;
+  if (cwStep < 3) {
+   cwStep++;
+   cwRender();
+  } else cwDone();
+ }));
  function chainNote() {
   const c = G.kmulti === "chain" ? V3.chainStop : null, h = $("kmulti-hint");
   let m = "";
@@ -7522,7 +7766,9 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   if (e) e.textContent = [ t("rcol"), t("kpose"), t("kmulti") ].join(" · ");
  }
  function klayUi() {
-  $("klay-btns").hidden = !(G.kmulti === "chain" && G.kpose === "lay");
+  const on = G.kmulti === "chain" && G.kpose === "lay";
+  $("klay-btns").hidden = !on;
+  $("v3-relay").hidden = !(on && PROD === "keyring");
  }
  function kmultiHint() {
   klayUi();
@@ -7666,14 +7912,14 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   }));
  }
  function introPick(p) {
-  for (const b of document.querySelectorAll(".picks button")) b.setAttribute("aria-checked", b.dataset.p === p);
+  for (const b of document.querySelectorAll(".intro .picks button")) b.setAttribute("aria-checked", b.dataset.p === p);
   $("intro-note").textContent = INTRO_NOTE[p];
   if (PROD !== p) {
    $("prod-" + p).checked = true;
    setProd(p);
   }
  }
- for (const b of document.querySelectorAll(".picks button")) b.addEventListener("click", (() => introPick(b.dataset.p)));
+ for (const b of document.querySelectorAll(".intro .picks button")) b.addEventListener("click", (() => introPick(b.dataset.p)));
  $("intro-skip").addEventListener("click", (() => {
   introSkip = true;
   syncIntro();
@@ -7687,7 +7933,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   syncSplit();
   requestAnimationFrame((() => {
    resize();
-   V3.key = "";
+   V3.refit = true;
    build3d();
   }));
  }));
@@ -7983,7 +8229,9 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  syncSave();
  if (location.hash === "#debug") window.cutlineDebug = {
   holes: () => holesPos(),
-  cur: () => cur
+  cur: () => cur,
+  v3: () => V3,
+  G: () => G
  };
  new ResizeObserver(resize).observe(stage);
  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
