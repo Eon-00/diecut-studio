@@ -591,15 +591,14 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <label class="opt"><span>内側の穴を埋める<small>絵柄の内側の抜けにカットラインを作りません</small></span><input class="sw" id="holes" type="checkbox"></label>
         </details>
         <div class="subh"><h3>カットラインの修正</h3><span class="hint" id="ed-count">修正なし</span></div>
-        <p class="hint">キャンバス<b>左のツールバー</b>（スマホは下）で<b>ブラシ・消しゴム・押し出し</b>を選ぶと、すぐに修正できます。</p>
         <p class="warn pc" id="ed-pc"><b>パソコンでの作業</b>をおすすめします。スマホでは指で隠れて細かい修正が難しくなります。</p>
-        <div class="btns"><button class="btn mini" id="btn-tools-show" type="button">ツールバーの位置を見る</button></div>
-        <div class="seg" role="radiogroup" aria-label="ツール" hidden>
+        <div class="seg" role="radiogroup" aria-label="ツール">
           <label><input type="radio" name="tool" id="tool-move" checked><span>移動</span></label>
           <label><input type="radio" name="tool" id="tool-brush"><span>ブラシ</span></label>
           <label><input type="radio" name="tool" id="tool-erase"><span>消しゴム</span></label>
           <label><input type="radio" name="tool" id="tool-push"><span>押し出し</span></label>
         </div>
+        <p class="hint">ここかキャンバス<b>左のツールバー</b>（スマホは下）でツールを選び、キャンバスに塗ります。</p>
         <div class="field" id="f-brush" hidden>
           <div class="row"><label for="bs" id="bs-label">太さ</label><span class="num"><input id="bs-n" type="number" min="0.5" max="15" step="0.5" aria-label="ブラシの太さ mm">mm</span></div>
           <input id="bs" type="range" min="0.5" max="15" step="0.5">
@@ -7233,7 +7232,18 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
  bind("smooth", "smooth", "smooth-n");
  bind("relax", "relax", "relax-n");
  bind("bs", "bs", "bs-n", draw);
- for (const t of [ "move", "brush", "erase", "push" ]) $("tool-" + t).addEventListener("change", (() => setTool(t)));
+ for (const t of [ "move", "brush", "erase", "push" ]) $("tool-" + t).addEventListener("change", (() => {
+  setTool(t);
+  if (t === "move" || SH.on) return;
+  if (V3.on && !splitOn()) close3d();
+  const bar = $("tools");
+  syncTools();
+  if (bar.hidden) return;
+  bar.classList.remove("flash");
+  void bar.offsetWidth;
+  bar.classList.add("flash");
+  if (getComputedStyle(document.querySelector(".side")).position === "fixed") document.querySelector(".side").classList.remove("full");
+ }));
  for (const b of document.querySelectorAll("#tools [data-t]")) b.addEventListener("click", (() => {
   setTool(b.dataset.t);
   if (b.dataset.t !== "move" && matchMedia("(pointer:coarse) and (max-width:700px)").matches && !UI.edTouch) {
@@ -7249,17 +7259,6 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   syncTools();
   draw();
  };
- $("btn-tools-show").addEventListener("click", (() => {
-  if (SH.on) return toast("シート配置画面ではカットラインを修正できません。単品に切り替えてください。");
-  if (V3.on && !splitOn()) close3d();
-  const bar = $("tools");
-  syncTools();
-  if (bar.hidden) return toast("先に画像を開いてください。");
-  bar.classList.remove("flash");
-  void bar.offsetWidth;
-  bar.classList.add("flash");
-  if (getComputedStyle(document.querySelector(".side")).position === "fixed") document.querySelector(".side").classList.remove("full");
- }));
  $("ts-up").addEventListener("click", (() => bsStep(.5)));
  $("ts-dn").addEventListener("click", (() => bsStep(-.5)));
  $("btn-ed-undo").addEventListener("click", undoEdit);
