@@ -6,6 +6,7 @@
 지원 언어: 한국어 · English · 日本語 · 中文
 
 ![diecut-studio 화면](docs/img/02-screen.png)
+<sub>샘플 그림 © 버롤 ([X @dessert_jusio](https://x.com/dessert_jusio))</sub>
 
 📖 **[사용 가이드 (스크린샷 포함)](docs/GUIDE.md)**
 
@@ -67,4 +68,4 @@
 - 3D 미리보기에 [three.js](https://threejs.org/), PDF 저장에 [pdf-lib](https://pdf-lib.js.org/)를 사용합니다.
 - Adobe, Illustrator는 Adobe Inc.의 상표입니다.
 - AI 바이브 코딩으로 만들었습니다.
-- 화면 사진 속 샘플 그림 © EON · 무단 사용 및 재배포 금지
+- 화면 사진과 가이드 속 샘플 그림 © 버롤 ([X @dessert_jusio](https://x.com/dessert_jusio)) · 작가의 허락을 받아 사용했으며 무단 사용 · 저장 · 재배포를 금지합니다
