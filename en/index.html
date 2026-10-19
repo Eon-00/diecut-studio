@@ -159,12 +159,15 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 #view3.white{background:#fff}
 .wbadge{top:44px;right:12px;border:0;cursor:pointer;background:var(--warn-bg);color:var(--warn);font-weight:600;font-family:var(--sans);font-size:12px;padding:5px 10px}
 .wbadge:hover{filter:brightness(.97)}
-.warn{display:flex;flex-direction:column;gap:2px;padding:6px}
+#warn,#sh-warn{display:flex;flex-direction:column;gap:2px;padding:6px 8px}
+#warn[hidden],#sh-warn[hidden]{display:none}
 .warn button{display:block;width:100%;padding:4px 6px;border:0;border-radius:6px;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
 .warn button:hover{background:color-mix(in srgb,var(--warn) 12%,transparent)}
 .warn button::after{content:" →";opacity:.6}
 .sec.flash{animation:flash 1.2s ease-out}
 @keyframes flash{0%{background:var(--cut-soft)}100%{background:transparent}}
+a.btn.guide{text-decoration:none;color:inherit}
+@media (max-width:519px){a.btn.guide .lbl{display:none}a.btn.guide{padding-left:8px;padding-right:8px}}
 .tools{position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow)}
 .tools[hidden]{display:none}
 .tools>button{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:8px;background:none;color:var(--fg)}
@@ -193,6 +196,21 @@ svg.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;str
 .dock button[aria-pressed="true"]{color:var(--cut);background:var(--cut-soft)}
 .dock .sep{width:1px;height:18px;background:var(--line);margin:0 3px}
 .zoom{font-family:var(--mono);font-size:11.5px;color:var(--muted);min-width:42px;text-align:center}
+dialog.gd{border:0;padding:0;width:min(860px,calc(100% - 24px));height:calc(100% - 40px);max-height:none;border-radius:16px;background:var(--panel);color:var(--fg);box-shadow:var(--shadow);overflow:hidden}
+dialog.gd[open]{display:flex;flex-direction:column}
+dialog.gd::backdrop{background:rgba(20,26,24,.38);backdrop-filter:blur(2px)}
+.gd-head{display:flex;align-items:center;gap:8px;padding:12px 14px 12px 20px;border-bottom:1px solid var(--line)}.gd-head h2{margin:0 auto 0 0;font-size:16px}
+.gd .x{width:32px;height:32px;border:0;border-radius:8px;background:none;font-size:20px;line-height:1;color:var(--muted);cursor:pointer}.gd .x:hover{background:var(--field)}
+.gd-body{flex:1;overflow:auto;padding:8px 28px 40px;font-size:14px;line-height:1.7;overscroll-behavior:contain}
+.gd-body h1{font-size:22px;margin:18px 0 8px}.gd-body h2{font-size:18px;margin:34px 0 10px;padding-top:6px;border-top:1px solid var(--line)}.gd-body h3{font-size:15px;margin:22px 0 6px}
+.gd-body p{margin:8px 0}.gd-body ol,.gd-body ul{margin:8px 0;padding-left:22px}.gd-body li{margin:3px 0}
+.gd-body img{display:block;max-width:100%;height:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px}
+.gd-body table{border-collapse:collapse;margin:10px 0;font-size:13px;width:100%}.gd-body th,.gd-body td{border:1px solid var(--line);padding:5px 9px;text-align:left;vertical-align:top}.gd-body th{background:var(--field)}
+.gd-body td img{margin:0}
+.gd-body blockquote{margin:12px 0;padding:8px 12px;border-left:3px solid var(--cut);background:var(--cut-soft);border-radius:0 8px 8px 0}
+.gd-body code{font-family:var(--mono,monospace);font-size:12.5px;padding:1px 5px;border-radius:4px;background:var(--field)}
+.gd-body hr{border:0;margin:0}.gd-body a{color:var(--cut)}.gd-body sub{color:var(--muted)}
+@media (max-width:519px){dialog.gd{width:100%;height:100%;max-width:none;border-radius:0}.gd-body{padding:4px 16px 40px}}
 dialog.cw{border:0;padding:0;background:none;width:min(440px,calc(100% - 24px));max-height:calc(100% - 24px);color:var(--fg)}
 dialog.cw::backdrop{background:rgba(20,26,24,.38);backdrop-filter:blur(2px)}
 .cw .card{padding:20px;border-radius:16px;background:var(--panel);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px}
@@ -380,6 +398,7 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
       <b>Goods Cutline Maker</b>
     </div>
     <select class="lang" id="lang" aria-label="Language" hidden></select>
+    <a class="btn ghost guide" id="btn-guide" href="https://github.com/Eon-00/diecut-studio/blob/HEAD/docs/GUIDE.md" target="_blank" rel="noopener" title="Opens the illustrated guide (in Korean)"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M6.3 6.2a1.8 1.8 0 1 1 2.5 1.7c-.5.2-.8.6-.8 1.1v.4M8 11.6v.1"/></svg><span class="lbl">Guide (Korean)</span></a>
     <label class="btn ghost" id="btn-open" for="file-input" role="button" tabindex="0" title="Supported files: PNG · WebP · JPG · GIF. Transparent PNG or WebP recommended"><svg class="ic" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg>Open file</label>
     <input id="file-input" type="file" accept="image/*" multiple hidden>
     <button class="btn ghost" id="btn-clear" type="button">Clear all</button>
@@ -463,6 +482,10 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
         <p class="hint">Scroll to zoom, drag to pan · Hold <kbd>Space</kbd> to hide cut lines</p>
         </div></div>
       </div>
+      <dialog class="gd" id="gd" aria-labelledby="gd-title">
+        <div class="gd-head"><h2 id="gd-title">Guide (Korean)</h2><a class="btn mini ghost" id="gd-gh" href="https://github.com/Eon-00/diecut-studio/blob/HEAD/docs/GUIDE.md" target="_blank" rel="noopener">View on GitHub</a><button type="button" class="x" id="gd-x" aria-label="Close">×</button></div>
+        <div class="gd-body" id="gd-body"><p class="hint">Loading…</p></div>
+      </dialog>
       <dialog class="cw" id="cw" aria-labelledby="cw-title">
         <div class="card">
           <div class="cw-head"><h2 id="cw-title">Make a charm chain</h2><button type="button" class="x" id="cw-x" aria-label="Close">×</button></div>
@@ -7684,6 +7707,127 @@ kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line-strong)
   }
  }));
  $("btn-chain-hole").addEventListener("click", (e => addBotHole(e)));
+ const GUIDE = {
+  html: null,
+  base: null
+ };
+ function mdInline(t) {
+  const esc = x => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const keep = [];
+  t = t.replace(/<(sub|\/sub|img [^>]*)>/g, (m => (keep.push(m), "\0" + (keep.length - 1) + "\0")));
+  t = esc(t);
+  t = t.replace(/`([^`]+)`/g, "<code>$1</code>").replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, ((_, a, u) => '<img loading="lazy" alt="' + a + '" src="' + new URL(u, GUIDE.base).href + '">')).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, ((_, a, u) => u.startsWith("#") ? '<a href="' + u + '" data-in>' + a + "</a>" : '<a href="' + new URL(u, GUIDE.base).href + '" target="_blank" rel="noopener">' + a + "</a>")).replace(/\*{2}([^*]+)\*{2}/g, "<b>$1</b>");
+  return t.replace(/\u0000(\d+)\u0000/g, ((_, i) => keep[i].replace(/src="([^"]+)"/, ((m, u) => 'loading="lazy" src="' + new URL(u, GUIDE.base).href + '"'))));
+ }
+ const mdSlug = t => t.replace(/<[^>]+>/g, "").trim().toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s/g, "-");
+ function mdRender(md) {
+  const L = md.replace(/\r/g, "").split("\n"), out = [];
+  let i = 0;
+  const cells = l => l.trim().replace(/^\||\|$/g, "").split("|").map((c => c.trim()));
+  while (i < L.length) {
+   const l = L[i];
+   if (!l.trim()) {
+    i++;
+    continue;
+   }
+   let m;
+   if (m = l.match(/^(#{1,3})\s+(.*)/)) {
+    const h = mdInline(m[2]);
+    out.push("<h" + m[1].length + ' id="' + mdSlug(m[2]) + '">' + h + "</h" + m[1].length + ">");
+    i++;
+    continue;
+   }
+   if (/^---+\s*$/.test(l)) {
+    out.push("<hr>");
+    i++;
+    continue;
+   }
+   if (l.startsWith("|") && L[i + 1] && /^\|[\s:|-]+\|?\s*$/.test(L[i + 1])) {
+    const head = cells(l);
+    i += 2;
+    const rows = [];
+    while (i < L.length && L[i].startsWith("|")) rows.push(cells(L[i++]));
+    out.push("<table><thead><tr>" + head.map((c => "<th>" + mdInline(c) + "</th>")).join("") + "</tr></thead><tbody>" + rows.map((r => "<tr>" + r.map((c => "<td>" + mdInline(c) + "</td>")).join("") + "</tr>")).join("") + "</tbody></table>");
+    continue;
+   }
+   if (l.startsWith(">")) {
+    const b = [];
+    while (i < L.length && L[i].startsWith(">")) b.push(L[i++].replace(/^>\s?/, ""));
+    out.push("<blockquote>" + mdInline(b.join(" ")) + "</blockquote>");
+    continue;
+   }
+   if (/^\d+\.\s/.test(l) || /^[-*]\s/.test(l)) {
+    const ol = /^\d+\./.test(l), it = [];
+    while (i < L.length && (ol ? /^\d+\.\s/ : /^[-*]\s/).test(L[i])) it.push(L[i++].replace(/^(\d+\.|[-*])\s+/, ""));
+    out.push((ol ? "<ol>" : "<ul>") + it.map((x => "<li>" + mdInline(x) + "</li>")).join("") + (ol ? "</ol>" : "</ul>"));
+    continue;
+   }
+   const p = [];
+   while (i < L.length && L[i].trim() && !/^(#{1,3}\s|>|\||---|\d+\.\s|[-*]\s)/.test(L[i])) p.push(L[i++]);
+   if (!p.length) {
+    out.push("<p>" + mdInline(L[i++]) + "</p>");
+    continue;
+   }
+   out.push("<p>" + p.map(mdInline).join("<br>") + "</p>");
+  }
+  return out.join("\n");
+ }
+ function guideSec() {
+  if (!items.length || items.every((x => x.isSample))) return "1-시작하기";
+  if (V3.on && PROD !== "sticker") return PROD === "keyring" && G.kmulti === "chain" ? "줄줄이-키링-만들기" : "9-3d-미리보기";
+  const t = UI.tab || "form";
+  if (SH.on) return "시트-배치";
+  if (t === "save") return "10-저장하기";
+  if (t === "print") return PROD === "sticker" ? "4-스티커" : "8-화이트-인쇄와-뒷면";
+  if (t === "v3") return PROD === "keyring" && G.kmulti ? "줄줄이-키링-만들기" : "9-3d-미리보기";
+  if (t === "form") return "3-칼선-다듬기";
+  return {
+   sticker: "4-스티커",
+   keyring: "5-아크릴-키링",
+   korotto: "6-아크릴-블록",
+   stand: "7-아크릴-스탠드"
+  }[PROD] || "1-시작하기";
+ }
+ function guideGo(id) {
+  const b = $("gd-body"), h = id && b.querySelector('[id="' + CSS.escape(id) + '"]');
+  b.scrollTop = h ? h.getBoundingClientRect().top - b.getBoundingClientRect().top + b.scrollTop - 10 : 0;
+ }
+ async function openGuide(e) {
+  if (!PUBLIC || location.protocol === "file:") return;
+  e.preventDefault();
+  const d = $("gd"), sec = guideSec();
+  d.showModal();
+  if (GUIDE.html) {
+   guideGo(sec);
+   return;
+  }
+  try {
+   GUIDE.base = new URL((LANG === "ko" ? "" : "../") + "docs/GUIDE.md", location.href).href;
+   const r = await fetch(GUIDE.base, {
+    cache: "no-cache"
+   });
+   if (!r.ok) throw 0;
+   GUIDE.html = mdRender(await r.text());
+   $("gd-body").innerHTML = GUIDE.html;
+   requestAnimationFrame((() => guideGo(sec)));
+  } catch {
+   $("gd-body").innerHTML = "";
+   const p = document.createElement("p");
+   p.textContent = "Couldn't load the guide. Use View on GitHub above.";
+   $("gd-body").append(p);
+  }
+ }
+ $("btn-guide").addEventListener("click", openGuide);
+ $("gd-x").addEventListener("click", (() => $("gd").close()));
+ $("gd").addEventListener("click", (e => {
+  if (e.target === $("gd")) $("gd").close();
+ }));
+ $("gd-body").addEventListener("click", (e => {
+  const a = e.target.closest("a[data-in]");
+  if (!a) return;
+  e.preventDefault();
+  guideGo(decodeURIComponent(a.getAttribute("href").slice(1)));
+ }));
  let cwStep = 1;
  function cwRender() {
   const dlg = $("cw");
